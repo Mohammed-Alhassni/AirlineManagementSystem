@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="AirlineManagementSystem/AirlineManagementSystem.csproj" />
+  <Project Path="InteractiveTesting/InteractiveTesting.csproj" Id="5f5f82db-6770-4394-a13a-8b1bc8fa3961" />
 </Solution>
