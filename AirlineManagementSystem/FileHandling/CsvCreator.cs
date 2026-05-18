@@ -37,6 +37,34 @@ namespace AirlineManagementSystem.FileHandling
                     Console.WriteLine($"{fileName}.csv already created.");
                 }
 
+                //combine the headers array into single line
+                string headerLine = string.Join(',', headers);
+
+                //read the first line, if null it will be empty string
+                StreamReader sr = new StreamReader(filePath);
+                string exsitingLine = sr.ReadLine() ?? "";
+                sr.Close();
+
+                //check the existing header if it is created 
+                if (exsitingLine != "")
+                {
+                    //split the first line into array of headers to be compared to the required
+                    string[] exsitingHeader = exsitingLine.Split(',');
+
+                    if (exsitingHeader == headers)
+                    {
+                        Console.WriteLine($"{fileName} entity already created.");
+                    }
+                }
+                else
+                {
+                    // ceate header using the combined headers (headerline)
+                    StreamWriter sw = new StreamWriter(filePath);
+                    sw.WriteLine(headerLine);
+                    Console.WriteLine($"Successfully created entity: {fileName}");
+                    sw.Close();
+                }
+
             }
             catch (Exception ex)
             {
