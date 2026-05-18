@@ -21,7 +21,8 @@
                 //Check if the file exist, if not it creates it
                 if (!File.Exists(filePath))
                 {
-                    File.Create(filePath);
+                    File.Create(filePath).Close(); 
+
                     Console.WriteLine($"Successfully created file: {fileName}");
                 }
                 else
