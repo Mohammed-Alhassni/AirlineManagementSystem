@@ -51,7 +51,7 @@ namespace AirlineManagementSystem.FileHandling
                     //split the first line into array of headers to be compared to the required
                     string[] exsitingHeader = exsitingLine.Split(',');
 
-                    if (exsitingHeader == headers)
+                    if (exsitingHeader.SequenceEqual(headers))
                     {
                         Console.WriteLine($"{fileName} entity already created.");
                     }
