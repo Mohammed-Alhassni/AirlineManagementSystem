@@ -1,0 +1,130 @@
+erDiagram
+    passengers_csv {
+        string passenger_id PK "Constraints: Unique, Auto-assigned"
+        string full_name "Constraints: Required"
+        date date_of_birth "Constraints: Required"
+        string nationality "Constraints: Required"
+        string passport_number "Constraints: Unique"
+        string email "Constraints: Unique, Valid format"
+        string phone "Constraints: Required"
+        datetime registration_date "Constraints: Auto-recorded"
+        int loyalty_points_balance "Constraints: Non-negative"
+        string tier_status "Constraints: Bronze/Silver/Gold/Platinum"
+        string password "Constraints: Complexity enforced"
+    }
+
+    administrators_csv {
+        string email PK "Constraints: Unique"
+        string password "Constraints: Required"
+        string name "Constraints: Required"
+    }
+
+    airports_csv {
+        string iata_code PK "Constraints: 3 Uppercase Letters"
+        string full_name "Constraints: Required"
+        string city "Constraints: Required"
+        string country "Constraints: Required"
+        int time_zone_offset "Constraints: Required"
+    }
+
+    airlines_csv {
+        string icao_code PK "Constraints: Unique"
+        string name "Constraints: Required"
+        string country_of_registration "Constraints: Required"
+        string contact_information "Constraints: Required"
+    }
+
+    aircraft_csv {
+        string registration_number PK "Constraints: Unique"
+        string model "Constraints: Required"
+        string manufacturer "Constraints: Required"
+        int total_seat_capacity "Constraints: Sum of class counts"
+        int business_class_seat_count "Constraints: Non-negative"
+        int economy_class_seat_count "Constraints: Non-negative"
+        int manufacturing_year "Constraints: Required"
+        string operational_status "Constraints: Active/Under Maintenance/Retired"
+        string airline_icao_code FK "Links to airlines.csv"
+    }
+
+    flights_csv {
+        string flight_number PK "Constraints: Unique"
+        string origin_airport_iata FK "Links to airports.csv"
+        string destination_airport_iata FK "Links to airports.csv"
+        string airline_icao_code FK "Links to airlines.csv"
+        string aircraft_registration FK "Links to aircraft.csv"
+        datetime scheduled_departure_datetime "Constraints: Required"
+        datetime scheduled_arrival_datetime "Constraints: Required"
+        datetime actual_departure_datetime "Constraints: Nullable"
+        datetime actual_arrival_datetime "Constraints: Nullable"
+        string status "Constraints: Scheduled/Boarding/Departed/Arrived/Delayed/Cancelled"
+        int available_business_seats "Constraints: <= Aircraft capacity"
+        int available_economy_seats "Constraints: <= Aircraft capacity"
+        decimal base_price "Constraints: Positive"
+    }
+
+    crew_members_csv {
+        string employee_id PK "Constraints: Unique"
+        string full_name "Constraints: Required"
+        string role "Constraints: Pilot/Co-Pilot/Cabin Crew/Ground Staff"
+        string nationality "Constraints: Required"
+        string license_number "Constraints: Nullable unless Pilot"
+        string airline_affiliation_icao FK "Links to airlines.csv"
+        int years_experience "Constraints: Non-negative"
+        string availability_status "Constraints: Required"
+    }
+
+    flight_crew_junction_csv {
+        string flight_number PK, FK "Links to flights.csv"
+        string employee_id PK, FK "Links to crew_members.csv"
+    }
+
+    tickets_csv {
+        string ticket_id PK "Constraints: Auto-generated Unique ID"
+        string passenger_id FK "Links to passengers.csv"
+        string flight_number FK "Links to flights.csv"
+        string seat_class "Constraints: Business/Economy"
+        string seat_number "Constraints: Required"
+        datetime booking_date_time "Constraints: Auto-recorded"
+        string ticket_status "Constraints: Confirmed/Cancelled/Checked-In/Boarded"
+        decimal final_price_paid "Constraints: Computed via Pricing Engine"
+        int loyalty_points_earned "Constraints: Configurable formula"
+    }
+
+    baggage_csv {
+        string baggage_id PK "Constraints: Unique"
+        string ticket_id FK "Links to tickets.csv"
+        float weight_kg "Constraints: Enforces Max weight per type"
+        string baggage_type "Constraints: Cabin/Hold/Oversized"
+        string status "Constraints: Checked-In/Loaded/Lost/Delivered"
+    }
+
+    promotions_csv {
+        string promo_code PK "Constraints: Unique"
+        double discount_percentage "Constraints: Range 0-100"
+        date validity_start_date "Constraints: Prevent backdating"
+        date validity_end_date "Constraints: >= Start Date"
+        int max_uses "Constraints: Positive"
+        int current_use_count "Constraints: <= Max uses"
+        string applicable_fare_class "Constraints: Economy/Business/Both"
+        bool active_status "Constraints: Required"
+    }
+
+    system_logs_csv {
+        int log_id PK "Constraints: Auto-increment"
+        datetime timestamp "Constraints: Required"
+        string action_type "Constraints: Required"
+        string acting_user_id "Constraints: Passenger ID or Admin Email"
+    }
+
+    %% Relationships Mapping for Integrity Defs
+    airlines_csv ||--o{ aircraft_csv : "airline_icao_code"
+    airlines_csv ||--o{ flights_csv : "airline_icao_code"
+    airlines_csv ||--o{ crew_members_csv : "airline_affiliation_icao"
+    airports_csv ||--o{ flights_csv : "origin_airport_iata"
+    airports_csv ||--o{ flights_csv : "destination_airport_iata"
+    aircraft_csv ||--o{ flights_csv : "aircraft_registration"
+    flights_csv ||--o{ flight_crew_junction_csv : "flight_number"
+    crew_members_csv ||--o{ flight_crew_junction_csv : "employee_id"
+    passengers_csv ||--o{ tickets_csv : "passenger_id"
+    flights_csv ||--o{ tickets_csv : "flight_number"
+    tickets_csv ||--o{ baggage_csv : "ticket_id"
