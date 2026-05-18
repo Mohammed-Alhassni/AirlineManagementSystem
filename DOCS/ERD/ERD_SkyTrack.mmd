@@ -1,0 +1,58 @@
+---
+config:
+  layout: elk
+---
+flowchart TB
+    %% --- ENTITIES & ATTRIBUTE BINDINGS ---
+    
+    Administrator["Administrator"] --- AdminEmail["Email PK"] & AdminPassword["Password"] & AdminName["Name"]
+    
+    Airport["Airport"] --- IATA["IATA Code PK"] & AirName["Full Name"] & City["City"] & Country["Country"] & TimeZone["Time Zone Offset"]
+    
+    Airline["Airline"] --- AirlineICAO["ICAO Code PK"] & AirlineName["Name"] & RegCountry["Country of Registration"] & ContactInfo["Contact Information"]
+    
+    Aircraft["Aircraft"] --- RegNum["Registration Number PK"] & Model["Model"] & Manufacturer["Manufacturer"] & TotalSeats["Total Seat Capacity"] & BizSeats["Business Class Seat Count"] & EconSeats["Economy Class Seat Count"] & ManYear["Manufacturing Year"] & OpStatus["Operational Status"]
+    
+    Flight["Flight"] --- FlightNum["Flight Number PK"] & SchedDep["Scheduled Departure Datetime"] & SchedArr["Scheduled Arrival Datetime"] & ActDep["Actual Departure Datetime"] & ActArr["Actual Arrival Datetime"] & FlightStatus["Status"] & AvailBiz["Available Business Seats"] & AvailEcon["Available Economy Seats"] & BasePrice["Base Price"]
+    
+    Passenger["Passenger"] --- PassengerID["Passenger ID PK"] & PassName["Full Name"] & DOB["Date of Birth"] & Nationality["Nationality"] & PassportNum["Passport Number"] & PassEmail["Email"] & Phone["Phone"] & RegDate["Registration Date"] & LoyaltyPoints["Loyalty Points Balance"] & TierStatus["Tier Status"] & PassPassword["Password"]
+    
+    CrewMember["Crew Member"] --- EmployeeID["Employee ID PK"] & CrewName["Full Name"] & CrewRole["Role"] & CrewNat["Nationality"] & LicenseNum["License Number"] & Experience["Years of Experience"] & CrewAvail["Availability Status"]
+    
+    Ticket["Ticket"] --- TicketID["Ticket ID PK"] & SeatClass["Seat Class"] & SeatNumber["Seat Number"] & BookingDate["Booking Date and Time"] & TicketStatus["Ticket Status"] & PricePaid["Final Price Paid"] & PointsEarned["Loyalty Points Earned"]
+    
+    Baggage["Baggage"] --- BaggageID["Baggage ID PK"] & Weight["Weight in Kilograms"] & BagType["Baggage Type"] & BagStatus["Status"]
+    
+    Promotion["Promotion"] --- PromoCode["Promo Code PK"] & DiscountPct["Discount Percentage"] & StartDate["Validity Start Date"] & EndDate["Validity End Date"] & MaxUses["Maximum Number of Uses"] & CurrentUses["Current Use Count"] & FareClass["Applicable Fare Class"] & PromoActive["Active Status"]
+
+    SystemLog["System Log"] --- LogID["Log ID PK"] & LogTimestamp["Timestamp"] & LogAction["Action Type"] & ActingUser["Acting User ID"]
+
+    %% --- RELATIONSHIPS ---
+    
+    Airline -- 1 --> OwnsRel{"Owns"} -- M --> Aircraft
+    Airline -- 1 --> EmploysRel{"Employs"} -- M --> CrewMember
+    Airline -- 1 --> OperatesRel{"Operates"} -- M --> Flight
+    
+    Airport -- 1 --> DepartsRel{"Departs From"} -- M --> Flight
+    Airport -- 1 --> ArrivesRel{"Arrives At"} -- M --> Flight
+    
+    Aircraft -- 1 --> AssignedRel{"Assigned To"} -- M --> Flight
+    
+    CrewMember -- M --> CrewAssignedRel{"Crew Assigned To"} -- M --> Flight
+    
+    Passenger -- 1 --> PurchasesRel{"Purchases"} -- M --> Ticket
+    Flight -- 1 --> ContainsRel{"Contains"} -- M --> Ticket
+    
+    Ticket -- 1 --> IncludesRel{"Includes"} -- M --> Baggage
+
+    %% --- STYLING ---
+    
+    class Administrator,Airport,Airline,Aircraft,Flight,Passenger,CrewMember,Ticket,Baggage,Promotion,SystemLog entity
+    
+    class AdminEmail,IATA,AirlineICAO,RegNum,FlightNum,PassengerID,EmployeeID,TicketID,BaggageID,PromoCode,LogID keyAttribute
+    
+    class AdminPassword,AdminName,AirName,City,Country,TimeZone,AirlineName,RegCountry,ContactInfo,Model,Manufacturer,TotalSeats,BizSeats,EconSeats,ManYear,OpStatus,SchedDep,SchedArr,ActDep,ActArr,FlightStatus,AvailBiz,AvailEcon,BasePrice,PassName,DOB,Nationality,PassportNum,PassEmail,Phone,RegDate,LoyaltyPoints,TierStatus,PassPassword,CrewName,CrewRole,CrewNat,LicenseNum,Experience,CrewAvail,SeatClass,SeatNumber,BookingDate,TicketStatus,PricePaid,PointsEarned,Weight,BagType,BagStatus,DiscountPct,StartDate,EndDate,MaxUses,CurrentUses,FareClass,PromoActive,LogTimestamp,LogAction,ActingUser attribute
+
+    classDef entity fill:#1f77b4,stroke:#0d47a1,stroke-width:2px,color:#fff,font-weight:bold
+    classDef attribute fill:#f0f4c3,stroke:#afb42b,stroke-width:1px,color:#000
+    classDef keyAttribute fill:#d1c4e9,stroke:#512da8,stroke-width:2px,color:#000,font-weight:bold
