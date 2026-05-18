@@ -6,7 +6,7 @@ namespace AirlineManagementSystem
     {
         static void Main(string[] args)
         {
-            CsvCreator.CreateCsv("Data", "administrative_user", ["username", "password", "name"]);
+            DataSeed.DataInitilizer();
         }
     }
 }
