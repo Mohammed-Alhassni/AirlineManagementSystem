@@ -17,10 +17,6 @@
                     Directory.CreateDirectory(folderPath);
                     Console.WriteLine($"Successfully created directory: {folderName}");
                 }
-                else
-                {
-                    Console.WriteLine($"{folderName} folder already created.");
-                }
 
                 //Check if the file exist, if not it creates it
                 if (!File.Exists(filePath))
