@@ -6,7 +6,7 @@ namespace AirlineManagementSystem
     {
         static void Main(string[] args)
         {
-            DataSeed.DataInitilizer();
+            DataSeed.DataInitialize();
         }
     }
 }
