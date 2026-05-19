@@ -6,7 +6,7 @@ namespace AirlineManagementSystem.FileHandling
 {
     internal class DataSeed
     {
-        public static void DataInitilizer()
+        public static void DataInitialize()
         {
             /// <summary>
             /// Generates all schema CSV files from the SkyTrack ERD.
