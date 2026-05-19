@@ -6,14 +6,17 @@ namespace AirlineManagementSystem.FileHandling
 {
     internal class RawInsert
     {
-        public static void AddRaw(string fileName, string[] values)
+        public static void AddRaw(string fileName, string[] values, bool isBinDirectory = false)
         {
+            {
             /// <summary>
             /// Add new raw of values to existing entity 
             /// </summary>
 
             //Create the actual path for the csv file
-            string filePath = Path.Combine("..", "..", "..", "Data", $"{fileName}.csv");
+                string filePath = Path.Combine("Data", $"{fileName}.csv");
+                // because by default the current dir is where the app compiled bin\Debug\net10.0, we escape 3 times to fix it 
+                if (!isBinDirectory) { filePath = Path.Combine("..", "..", "..", filePath); }
             //create raw line 
             string rawLine = string.Join(',', values);
 
@@ -32,9 +35,16 @@ namespace AirlineManagementSystem.FileHandling
                     sw.Close();
                 }
             }
+                    }
+                }
             else
             {
                 Console.WriteLine($"{fileName} entity is not created. ");
+            }
+        }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error inerting raw to {fileName}.csv: {e.Message}");
             }
         }
     }
