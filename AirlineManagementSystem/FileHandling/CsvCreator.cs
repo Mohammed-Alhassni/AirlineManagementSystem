@@ -2,13 +2,18 @@
 {
     internal class CsvCreator
     {
-        public static void CreateCsv(string folderName, string fileName, string[] headers)
+        public static void CreateCsv(string fileName, string[] headers, bool isBinDirectory = false)
         {
             try
             {
-                // because by default the current dir is where the app compiled bin\Debug\net10.0, we escape 3 times to fix it 
+                ///<summary>
+                ///
+                ///</summary>
                 // Path.combine handles the path correctly regarding the platform 
-                string folderPath = Path.Combine("..", "..", "..", folderName);
+                string folderName = "Data";
+                string folderPath = folderName;
+                // because by default the current dir is where the app compiled bin\Debug\net10.0, we escape 3 times to fix it 
+                if (!isBinDirectory) { folderPath = Path.Combine("..", "..", "..", folderPath); }
                 string filePath = Path.Combine(folderPath, $"{fileName}.csv");
 
                 //Check if the directory exist, if not it creates it
