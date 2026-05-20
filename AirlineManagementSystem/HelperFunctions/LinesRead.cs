@@ -54,5 +54,26 @@ namespace AirlineManagementSystem.HelperFunctions
 
             return allLines;
         }
+        internal static string ReturnLineByWord(string filePath, string word)
+        {
+            if (!File.Exists(filePath))
+            {
+                return "";
+            }
+
+            // Using 'using' ensures the file is closed properly even if an error happens
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                //flag is true till the lines finish
+                string line;
+
+                while ((line = sr.ReadLine() ?? "") != "")
+                {
+                    if (line.Contains(word)) { return line; }
+                }
+            }
+
+            return "";
+        }
     }
 }
