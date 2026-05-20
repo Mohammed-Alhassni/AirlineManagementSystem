@@ -36,8 +36,8 @@
                 CsvCreator.CreateCsv("admin", ["username", "password", "name"]);
                 CsvCreator.CreateCsv("airline", ["IATA_code", "name", "country_of_registration", "contact_information"]);
                 CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_IATA_code"]);
-                CsvCreator.CreateCsv("airport", ["IATA_code", "full_name", "city", "country", "GMT_time_offset"]);
-                CsvCreator.CreateCsv("flight", ["flight_number", "origin_airport_IATA", "destination_airport_IATA", "aircraft_registration", "scheduled_departure_datetime", "scheduled_arrival_datetime", "actual_departure_datetime", "actual_arrival_datetime", "status", "available_business_seats", "available_economy_seats", "base_price"]);
+                CsvCreator.CreateCsv("airport", ["Iata_Code", "Full_Name", "City", "Country", "Time_Zone_Offset"]);                
+                CsvCreator.CreateCsv("flight", ["Flight_Number", "Origin_Airport_Iata", "Destination_Airport_Iata", "Airline_Icao_Code", "Aircraft_Registration", "Scheduled_Departure_Datetime", "Scheduled_Arrival_Datetime", "Actual_Departure_Datetime", "Actual_Arrival_Datetime", "Status", "Available_Business_Seats", "Available_Economy_Seats", "Base_Price"]);
                 CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                
                 CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
                 CsvCreator.CreateCsv("passenger", ["Passenger_Id", "Full_Name", "Date_Of_Birth", "Nationality", "Passport_Number", "Email", "Phone", "Registration_Date", "Loyalty_Points_Balance", "Tier_Status", "Password"]);                
@@ -59,13 +59,13 @@
                 RawInsert.AddRaw("aircraft", ["A6-EEV", "Airbus A380", "Airbus", "517", "14", "503", "2015", "Active", "EK"]);
 
                 // 4. Airport Rows (Independent parent)
-                RawInsert.AddRaw("airport", ["MCT", "Muscat International Airport", "Muscat", "Oman", "+4"]);
-                RawInsert.AddRaw("airport", ["DXB", "Dubai International Airport", "Dubai", "UAE", "+4"]);
-                RawInsert.AddRaw("airport", ["LHR", "Heathrow Airport", "London", "UK", "+1"]);
+                RawInsert.AddRaw("airport", ["MCT", "Muscat International Airport", "Muscat", "Oman", "4"]);
+                RawInsert.AddRaw("airport", ["DXB", "Dubai International Airport", "Dubai", "UAE", "4"]);
+                RawInsert.AddRaw("airport", ["LHR", "Heathrow Airport", "London", "UK", "1"]);
 
                 // 5. Flight Rows (Dependent on airport.IATA_code & aircraft.registration_number)
-                RawInsert.AddRaw("flight", ["WY101", "MCT", "LHR", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
-                RawInsert.AddRaw("flight", ["EK203", "DXB", "LHR", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
+                RawInsert.AddRaw("flight", ["WY101", "MCT", "LHR", "OMA", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
+                RawInsert.AddRaw("flight", ["EK203", "DXB", "LHR", "UAE", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
 
                 // 6. Crew Member Rows (Dependent on airline.airline_IATA_code)
                 RawInsert.AddRaw("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "LIC-OM-9921", "OMA", "12", "Available"]);
