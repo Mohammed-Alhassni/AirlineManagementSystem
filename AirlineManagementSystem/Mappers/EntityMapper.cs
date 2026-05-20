@@ -40,11 +40,42 @@ namespace AirlineManagementSystem.Mappers
                 {
                     string rawValue = dictionary[matchingKey];
 
-                    // Safely convert the string value from the dictionary to the property's target type
-                    // (This handles strings, ints, decimals, etc. automatically)
-                    object convertedValue = Convert.ChangeType(rawValue, prop.PropertyType);
+                    // Determine the true underlying target type (unwraps Nullable<T> types if necessary)
+                    Type targetType = prop.PropertyType;
+                    bool isNullable = targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>);
+    
+                    if (isNullable)
+                    {
+                        // Extract the actual inner type (e.g., extracts 'DateTime' out of 'DateTime?')
+                        targetType = Nullable.GetUnderlyingType(targetType);
+                    }
 
-                    prop.SetValue(entity, convertedValue);
+                    // Guardrail: If the value is completely empty and the property accepts nulls, assign null safely
+                    if (string.IsNullOrWhiteSpace(rawValue))
+                    {
+                        if (isNullable || !targetType.IsValueType)
+                        {
+                            prop.SetValue(entity, null);
+                            continue; // Skip conversion logic safely and move to the next field
+                        }
+                        else
+                        {
+                            // If it's a non-nullable value type (like an empty flight base price), handle or throw an alert
+                            Console.WriteLine($"[Warning] Found empty value for non-nullable property: {propName}");
+                            continue;
+                        }
+                    }
+
+                    try
+                    {
+                        // Perform the type conversion cleanly using the true target data type
+                        object convertedValue = Convert.ChangeType(rawValue, targetType);
+                        prop.SetValue(entity, convertedValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Mapper Error] Failed converting value '{rawValue}' to {targetType.Name} for property {propName}: {ex.Message}");
+                    }
                 }
             }
 
