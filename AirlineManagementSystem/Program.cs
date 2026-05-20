@@ -6,7 +6,23 @@ namespace AirlineManagementSystem
     {
         static void Main(string[] args)
         {
-            DataSeed.DataInitialize();
+            //DataSeed.DataInitialize();
+
+            Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPK("airline", "EK"));
+
+            Type type = myObj.GetType();
+
+            // 2. Fetch all public instance properties
+            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            // 3. Loop through and display them
+            foreach (PropertyInfo prop in properties)
+            {
+                string name = prop.Name;
+                object value = prop.GetValue(myObj, null) ?? "null"; // Handle potential null values safely
+
+                Console.WriteLine($"{name}: {value}");
+            }
         }
     }
 }
