@@ -29,9 +29,9 @@ namespace AirlineManagementSystem.FileHandling
                 else
                 {
                     //delete data in working dir
-                    if (Directory.Exists("..\\..\\..\\Data")) 
+                    if (Directory.Exists(Path.Combine("..", "..", "..", "Data"))) 
                     {
-                        Directory.Delete("..\\..\\..\\Data", recursive: true);
+                        Directory.Delete(Path.Combine("..", "..", "..", "Data"), recursive: true);
                         Console.WriteLine("existing data directory deleted. ");
 
                     }
@@ -92,8 +92,8 @@ namespace AirlineManagementSystem.FileHandling
                 RawInsert.AddRaw("baggage", ["BAG-0002", "TCK-0002", "8.0", "Cabin", "Hand-Carry"]);
 
                 // 11. Promotions Rows (Independent)
-                RawInsert.AddRaw("promotions", ["FLY2026", "15", "2026-01-01", "2026-12-31", "1", "Economy", "Active"]);
-                RawInsert.AddRaw("promotions", ["BIZCLASS", "20", "2026-05-01", "2026-08-31", "1", "Business", "Active"]);
+                RawInsert.AddRaw("promotions", ["FLY2026", "15", "2026-01-01", "2026-12-31", "1", "Economy", "true"]);
+                RawInsert.AddRaw("promotions", ["BIZCLASS", "20", "2026-05-01", "2026-08-31", "1", "Business", "true"]);
 
                 // 12. User Logs Rows (Dependent on user mapping constraint: Admin ID or Passenger ID)
                 RawInsert.AddRaw("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Admin logged into system", "MohdAlhsni"]);
