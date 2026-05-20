@@ -39,9 +39,7 @@
                 CsvCreator.CreateCsv("airport", ["IATA_code", "full_name", "city", "country", "GMT_time_offset"]);
                 CsvCreator.CreateCsv("flight", ["flight_number", "origin_airport_IATA", "destination_airport_IATA", "aircraft_registration", "scheduled_departure_datetime", "scheduled_arrival_datetime", "actual_departure_datetime", "actual_arrival_datetime", "status", "available_business_seats", "available_economy_seats", "base_price"]);
                 CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
-                CsvCreator.CreateCsv("passenger", ["passenger_id", "full_name", "date_of_birth", "nationality", "passport_number", "contact_information", "email", "registration_date", "loyalty_points_balance", "airline_IATA_code", "password"]);
-                CsvCreator.CreateCsv("ticket", ["ticket_id", "passenger_id", "flight_number", "seat_number", "booking_date_time", "travel_class", "final_price_paid", "loyalty_points_earned"]);
-                CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
+                CsvCreator.CreateCsv("passenger", ["Passenger_Id", "Full_Name", "Date_Of_Birth", "Nationality", "Passport_Number", "Email", "Phone", "Registration_Date", "Loyalty_Points_Balance", "Tier_Status", "Password"]);                CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
                 CsvCreator.CreateCsv("promotions", ["promo_code", "discount_percentage", "validity_start_date", "validity_end_date", "minimum_usage_count", "applicable_flight_class", "active_status"]);
                 CsvCreator.CreateCsv("user_logs", ["log_id", "timestamp", "action_details", "active_user_id"]);
 
@@ -76,8 +74,8 @@
                 RawInsert.AddRaw("flight_assignments", ["EK203", "EMP002"]);
 
                 // 8. Passenger Rows (Dependent on airline.airline_IATA_code)
-                RawInsert.AddRaw("passenger", ["PAS9901", "Ahmed Al-Riyami", "1990-05-12", "Omani", "A8899001", "ahmed@email.com", "ahmed@email.com", "2024-01-15", "1500", "WY", "pass123!"]);
-                RawInsert.AddRaw("passenger", ["PAS9902", "Emma Watson", "1993-09-20", "British", "B2233445", "emma@email.com", "emma@email.com", "2025-03-10", "450", "EK", "securePwd99"]);
+                RawInsert.AddRaw("passenger", ["PAS9901", "Ahmed Al-Riyami", "1990-05-12", "Omani", "A8899001", "ahmed@email.com", "+96899887766", "2024-01-15", "1500", "Gold", "pass123!"]);
+                RawInsert.AddRaw("passenger", ["PAS9902", "Emma Watson", "1993-09-20", "British", "B2233445", "emma@email.com", "+447711223344", "2025-03-10", "450", "Silver", "securePwd99"]);
 
                 // 9. Ticket Rows (Dependent on passenger.passenger_id & flight.flight_number)
                 RawInsert.AddRaw("ticket", ["TCK-0001", "PAS9901", "WY101", "12A", "2026-05-10 10:30:00", "Economy", "450.00", "45"]);
