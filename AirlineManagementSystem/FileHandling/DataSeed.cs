@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AirlineManagementSystem.FileHandling
+﻿namespace AirlineManagementSystem.FileHandling
 {
     internal class DataSeed
     {
@@ -42,8 +38,7 @@ namespace AirlineManagementSystem.FileHandling
                 CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_IATA_code"]);
                 CsvCreator.CreateCsv("airport", ["IATA_code", "full_name", "city", "country", "GMT_time_offset"]);
                 CsvCreator.CreateCsv("flight", ["flight_number", "origin_airport_IATA", "destination_airport_IATA", "aircraft_registration", "scheduled_departure_datetime", "scheduled_arrival_datetime", "actual_departure_datetime", "actual_arrival_datetime", "status", "available_business_seats", "available_economy_seats", "base_price"]);
-                CsvCreator.CreateCsv("crew_member", ["employee_ID", "full_name", "role", "nationality", "passport_number", "contact_information", "airline_IATA_code", "availability_status"]);
-                CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
+                CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
                 CsvCreator.CreateCsv("passenger", ["passenger_id", "full_name", "date_of_birth", "nationality", "passport_number", "contact_information", "email", "registration_date", "loyalty_points_balance", "airline_IATA_code", "password"]);
                 CsvCreator.CreateCsv("ticket", ["ticket_id", "passenger_id", "flight_number", "seat_number", "booking_date_time", "travel_class", "final_price_paid", "loyalty_points_earned"]);
                 CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
@@ -72,8 +67,9 @@ namespace AirlineManagementSystem.FileHandling
                 RawInsert.AddRaw("flight", ["EK203", "DXB", "LHR", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
 
                 // 6. Crew Member Rows (Dependent on airline.airline_IATA_code)
-                RawInsert.AddRaw("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "N1234567", "+96891112222", "WY", "Available"]);
-                RawInsert.AddRaw("crew_member", ["EMP002", "John Smith", "Cabin Crew", "British", "P7654321", "+447111222333", "EK", "Available"]);
+                RawInsert.AddRaw("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "LIC-OM-9921", "OMA", "12", "Available"]);
+                RawInsert.AddRaw("crew_member", ["EMP002", "Sarah Jones", "Co-Pilot", "British", "LIC-UK-4412", "UAE", "7", "Available"]);
+                RawInsert.AddRaw("crew_member", ["EMP003", "John Smith", "Cabin Crew", "American", "None", "UAE", "4", "On Leave"]);
 
                 // 7. Flight Assignments Rows (Dependent on flight.flight_number & crew_member.employee_ID)
                 RawInsert.AddRaw("flight_assignments", ["WY101", "EMP001"]);
