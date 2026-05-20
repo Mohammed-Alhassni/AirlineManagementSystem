@@ -9,8 +9,8 @@ public class Flight
     public string Aircraft_Registration { get; set; }
     public DateTime Scheduled_Departure_Datetime { get; set; }
     public DateTime Scheduled_Arrival_Datetime { get; set; }
-    public DateTime Actual_Departure_Datetime { get; set; }
-    public DateTime Actual_Arrival_Datetime { get; set; }   
+    public DateTime? Actual_Departure_Datetime { get; set; }
+    public DateTime? Actual_Arrival_Datetime { get; set; }   
     public string Status { get; set; }
     public int Available_Business_Seats { get; set; }
     public int Available_Economy_Seats { get; set; }
