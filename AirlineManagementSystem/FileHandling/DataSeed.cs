@@ -38,11 +38,14 @@
                 CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_IATA_code"]);
                 CsvCreator.CreateCsv("airport", ["IATA_code", "full_name", "city", "country", "GMT_time_offset"]);
                 CsvCreator.CreateCsv("flight", ["flight_number", "origin_airport_IATA", "destination_airport_IATA", "aircraft_registration", "scheduled_departure_datetime", "scheduled_arrival_datetime", "actual_departure_datetime", "actual_arrival_datetime", "status", "available_business_seats", "available_economy_seats", "base_price"]);
-                CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
-                CsvCreator.CreateCsv("passenger", ["Passenger_Id", "Full_Name", "Date_Of_Birth", "Nationality", "Passport_Number", "Email", "Phone", "Registration_Date", "Loyalty_Points_Balance", "Tier_Status", "Password"]);                CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
-                CsvCreator.CreateCsv("promotions", ["promo_code", "discount_percentage", "validity_start_date", "validity_end_date", "minimum_usage_count", "applicable_flight_class", "active_status"]);
-                CsvCreator.CreateCsv("user_logs", ["log_id", "timestamp", "action_details", "active_user_id"]);
-
+                CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                
+                CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
+                CsvCreator.CreateCsv("passenger", ["Passenger_Id", "Full_Name", "Date_Of_Birth", "Nationality", "Passport_Number", "Email", "Phone", "Registration_Date", "Loyalty_Points_Balance", "Tier_Status", "Password"]);                
+                CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
+                CsvCreator.CreateCsv("promotions", ["Promo_Code", "Discount_Percentage", "Validity_Start_Date", "Validity_End_Date", "Max_Uses", "Current_Use_Count", "Applicable_Fare_Class", "Active_Status"]);                
+                CsvCreator.CreateCsv("user_logs", ["Log_Id", "Timestamp", "Action_Type", "Acting_User_Id"]);
+                CsvCreator.CreateCsv("ticket", ["Ticket_Id", "Passenger_Id", "Flight_Number", "Seat_Class", "Seat_Number", "Booking_Date_Time", "Ticket_Status", "Final_Price_Paid", "Loyalty_Points_Earned"]);
+                
                 // 1. Admin Rows (Independent)
                 RawInsert.AddRaw("admin", ["MohdAlhsni", "9922", "Mohammed Al Hasni"]);
                 RawInsert.AddRaw("admin", ["SarahJones", "4411", "Sarah Jones"]);
@@ -78,20 +81,20 @@
                 RawInsert.AddRaw("passenger", ["PAS9902", "Emma Watson", "1993-09-20", "British", "B2233445", "emma@email.com", "+447711223344", "2025-03-10", "450", "Silver", "securePwd99"]);
 
                 // 9. Ticket Rows (Dependent on passenger.passenger_id & flight.flight_number)
-                RawInsert.AddRaw("ticket", ["TCK-0001", "PAS9901", "WY101", "12A", "2026-05-10 10:30:00", "Economy", "450.00", "45"]);
-                RawInsert.AddRaw("ticket", ["TCK-0002", "PAS9902", "EK203", "02B", "2026-05-12 16:45:00", "Business", "1200.00", "120"]);
+                RawInsert.AddRaw("ticket", ["TCK-0001", "PAS9901", "WY101", "Economy", "12A", "2026-05-10 10:30:00", "Confirmed", "450.00", "45"]);
+                RawInsert.AddRaw("ticket", ["TCK-0002", "PAS9902", "EK203", "Business", "02B", "2026-05-12 16:45:00", "Confirmed", "1200.00", "120"]);
 
                 // 10. Baggage Rows (Dependent on ticket.ticket_id)
                 RawInsert.AddRaw("baggage", ["BAG-0001", "TCK-0001", "21.5", "Checked", "Checked-In"]);
                 RawInsert.AddRaw("baggage", ["BAG-0002", "TCK-0002", "8.0", "Cabin", "Hand-Carry"]);
 
                 // 11. Promotions Rows (Independent)
-                RawInsert.AddRaw("promotions", ["FLY2026", "15", "2026-01-01", "2026-12-31", "1", "Economy", "true"]);
-                RawInsert.AddRaw("promotions", ["BIZCLASS", "20", "2026-05-01", "2026-08-31", "1", "Business", "true"]);
+                RawInsert.AddRaw("promotions", ["FLY2026", "15.0", "2026-01-01 00:00:00", "2026-12-31 23:59:59", "500", "142", "Economy", "True"]);
+                RawInsert.AddRaw("promotions", ["BIZCLASS", "20.0", "2026-05-01 00:00:00", "2026-08-31 23:59:59", "100", "12", "Business", "True"]);
 
                 // 12. User Logs Rows (Dependent on user mapping constraint: Admin ID or Passenger ID)
-                RawInsert.AddRaw("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Admin logged into system", "MohdAlhsni"]);
-                RawInsert.AddRaw("user_logs", ["LOG-0002", "2026-05-19 10:15:00", "Passenger booked a flight ticket", "PAS9901"]);
+                RawInsert.AddRaw("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Login", "MohdAlhsni"]);
+                RawInsert.AddRaw("user_logs", ["LOG-0002", "2026-05-19 10:15:00", "Ticket Booking", "PAS9901"]);
             }
             catch (Exception e)
             {
