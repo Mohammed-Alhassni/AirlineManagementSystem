@@ -9,7 +9,7 @@ namespace AirlineManagementSystem
     {
         static void Main(string[] args)
         {
-            //DataSeed.DataInitialize();
+            DataSeed.DataInitialize();
 
             Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPK("airline", "EK"));
 
