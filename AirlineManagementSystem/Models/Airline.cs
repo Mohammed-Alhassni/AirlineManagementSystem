@@ -6,9 +6,9 @@ namespace AirlineManagementSystem.Models
 {
     internal class Airline
     {
-        public string IATA_code { get; set; }
-        public string name { get; set; }
-        public string country_of_registration { get; set; }
-        public string contact_information { get; set; }
+        public string IataCode { get; set; }
+        public string Name { get; set; }
+        public string CountryOfRegistration { get; set; }
+        public string ContactInformation { get; set; }
     }
 }
