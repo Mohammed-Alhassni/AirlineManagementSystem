@@ -20,15 +20,19 @@ namespace AirlineManagementSystem.Mappers
             // Loop through each property and search for a matching key in the dictionary
             foreach (PropertyInfo prop in properties)
             {
-                // Get the property name 
-                string propName = prop.Name;
-
+                // Get the property name and standardize the C# property name by stripping underscores and convert to lowercase
+                string propName = prop.Name.Replace("_", "").ToLower();
+                
                 // Look for a key in the dictionary matching the property name
                 // We use OrdinalIgnoreCase so "username" matches "Username"
                 string matchingKey = null;
                 foreach (string key in dictionary.Keys)
                 {
-                    if (key.Equals(propName, StringComparison.OrdinalIgnoreCase))
+                    // Standardize the CSV column header by stripping its underscores and convert to lowercase 
+                    // Save to new string as Foreach iteration variable 'key' is immutable. The assignment target must be an assignable variable, property, or indexer
+                    string cleanCsvKey = key.Replace("_", "").ToLower();
+                    
+                    if (cleanCsvKey.Equals(propName, StringComparison.OrdinalIgnoreCase))
                     {
                         matchingKey = key;
                         break;
