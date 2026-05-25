@@ -9,9 +9,9 @@
                 /// <summary>
                 /// Generates all schema CSV files from the SkyTrack ERD. If they exist, they will be deleted
                 /// </summary>
-
                 //on start up, if dataseed enabled it will create new database by deleting exsting databases, other wise it will duplicate the values 
                 //check which folder we are using bin/working dir 
+                
                 if (isBinDirectory) 
                 { 
                     //delete data in bin dir
