@@ -1,15 +1,17 @@
-﻿namespace AirlineManagementSystem.FileHandling
+﻿using AirlineManagementSystem.FileHandling;
+
+namespace AirlineManagementSystem.HelperFunctions
 {
     internal class DataSeed
     {
+        /// <summary>
+        /// Generates all schema CSV files from the SkyTrack ERD. If they exist, they will be deleted
+        /// </summary>
         public static void DataInitialize(bool isBinDirectory = false)
         {
-            try
+            try 
             {
-                /// <summary>
-                /// Generates all schema CSV files from the SkyTrack ERD. If they exist, they will be deleted
-                /// </summary>
-                //on start up, if dataseed enabled it will create new database by deleting exsting databases, other wise it will duplicate the values 
+                //on start up, if dataseed enabled it will create new database by deleting exsting databases, otherwise it will duplicate the values 
                 //check which folder we are using bin/working dir 
                 
                 if (isBinDirectory) 

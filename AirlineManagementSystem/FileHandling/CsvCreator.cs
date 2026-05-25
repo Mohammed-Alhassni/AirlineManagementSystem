@@ -2,13 +2,13 @@
 {
     internal class CsvCreator
     {
+        ///<summary>
+        ///
+        ///</summary>
         public static void CreateCsv(string fileName, string[] headers, bool isBinDirectory = false)
         {
             try
             {
-                ///<summary>
-                ///
-                ///</summary>
                 // Path.combine handles the path correctly regarding the platform 
                 string folderName = "Data";
                 string folderPath = folderName;

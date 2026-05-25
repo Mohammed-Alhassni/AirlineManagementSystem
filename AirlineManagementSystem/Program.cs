@@ -11,7 +11,7 @@ namespace AirlineManagementSystem
         {
             DataSeed.DataInitialize();
 
-            Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPK("airline", "EK"));
+            Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPk("airline", "EK"));
 
             Type type = myObj.GetType();
 

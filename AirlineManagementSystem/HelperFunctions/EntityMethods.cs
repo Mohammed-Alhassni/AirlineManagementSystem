@@ -1,28 +1,31 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-public class EntityMethods
+namespace AirlineManagementSystem.HelperFunctions
 {
-    internal static List<string> ExtractVaribles<T>(bool cleanString = true) where  T : new()
+    public class EntityMethods
     {
-        List<string> variblesNames = new List<string>();
-        // Get all public properties of the class
-        Type type = typeof(T);
-        PropertyInfo[] properties = type.GetProperties();
-
-
-        foreach (PropertyInfo prop in properties)
+        internal static List<string> ExtractVaribles<T>(bool cleanString = true) where T : new()
         {
-            string name = prop.Name;
-                
-            if (cleanString)
-            {
-                name = Regex.Replace(name, "(?<!^)(?=[A-Z])", " ");
-            }
-                
-            variblesNames.Add(name);
-        }
+            List<string> variblesNames = new List<string>();
+            // Get all public properties of the class
+            Type type = typeof(T);
+            PropertyInfo[] properties = type.GetProperties();
 
-        return variblesNames;
+
+            foreach (PropertyInfo prop in properties)
+            {
+                string name = prop.Name;
+
+                if (cleanString)
+                {
+                    name = Regex.Replace(name, "(?<!^)(?=[A-Z])", " ");
+                }
+
+                variblesNames.Add(name);
+            }
+
+            return variblesNames;
+        }
     }
 }

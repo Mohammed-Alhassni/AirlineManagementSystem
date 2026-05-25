@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 
 namespace AirlineManagementSystem.HelperFunctions
 {
@@ -25,7 +22,7 @@ namespace AirlineManagementSystem.HelperFunctions
                 
                 // Look for a key in the dictionary matching the property name
                 // We use OrdinalIgnoreCase so "username" matches "Username"
-                string matchingKey = null;
+                string matchingKey = "";
                 foreach (string key in dictionary.Keys)
                 {
                     // Standardize the CSV column header by stripping its underscores and convert to lowercase 
@@ -40,7 +37,7 @@ namespace AirlineManagementSystem.HelperFunctions
                 }
 
                 // If a matching key is found, assign the dictionary value to the object
-                if (matchingKey != null)
+                if (matchingKey != "")
                 {
                     string rawValue = dictionary[matchingKey];
 

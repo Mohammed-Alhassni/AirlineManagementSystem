@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AirlineManagementSystem.FileHandling
+﻿namespace AirlineManagementSystem.FileHandling
 {
     internal class LineInsert
     {
+        /// <summary>
+        /// Adds new raw of values to existing entity 
+        /// </summary>
         public static void AddLine(string fileName, string[] values, bool isBinDirectory = false)
         {
+            
             try
             {
-                /// <summary>
-                /// Adds new raw of values to existing entity 
-                /// </summary>
-
                 //Create the actual path for the csv file
                 string filePath = Path.Combine("Data", $"{fileName}.csv");
                 // because by default the current dir is where the app compiled bin\Debug\net10.0, we escape 3 times to fix it 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Text;
-
-namespace AirlineManagementSystem.HelperFunctions
+﻿namespace AirlineManagementSystem.FileHandling
 {
     internal class LinesRead
     {

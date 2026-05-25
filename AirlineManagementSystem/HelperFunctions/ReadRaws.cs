@@ -1,14 +1,10 @@
-﻿using AirlineManagementSystem.HelperFunctions;
-using System;
-using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
-using System.Text;
+﻿using AirlineManagementSystem.FileHandling;
 
-namespace AirlineManagementSystem.FileHandling
+namespace AirlineManagementSystem.HelperFunctions
 {
     internal class ReadRaws
     {
-        internal static Dictionary<string, string> ReadRawByPK(string fileName, string primaryKey, bool isBinDirectory = false)
+        internal static Dictionary<string, string> ReadRawByPk(string fileName, string primaryKey, bool isBinDirectory = false)
         {
             try
             {
