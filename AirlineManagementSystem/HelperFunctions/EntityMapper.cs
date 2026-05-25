@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace AirlineManagementSystem.Mappers
+namespace AirlineManagementSystem.HelperFunctions
 {
     public static class EntityMapper
     {
