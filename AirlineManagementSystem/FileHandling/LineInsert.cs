@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineManagementSystem.FileHandling
 {
-    internal class RawInsert
+    internal class LineInsert
     {
         public static void AddRaw(string fileName, string[] values, bool isBinDirectory = false)
         {
