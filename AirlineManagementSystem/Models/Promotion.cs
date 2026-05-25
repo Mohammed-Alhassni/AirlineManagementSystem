@@ -2,12 +2,12 @@ namespace AirlineManagementSystem.Models;
 
 public class Promotion
 {
-    public string Promo_Code { get; set; }
-    public double Discount_Percentage { get; set; }
-    public DateTime Validity_Start_Date { get; set; }
-    public DateTime Validity_End_Date { get; set; }
-    public int Max_Uses { get; set; }
-    public int Current_Use_Count { get; set; }
-    public string Applicable_Fare_Class { get; set; }
-    public bool Active_Status { get; set; }
+    public string PromoCode { get; set; }
+    public double DiscountPercentage { get; set; }
+    public DateTime ValidityStartDate { get; set; }
+    public DateTime ValidityEndDate { get; set; }
+    public int MaxUses { get; set; }
+    public int CurrentUseCount { get; set; }
+    public string ApplicableFareClass { get; set; }
+    public bool ActiveStatus { get; set; }
 }
