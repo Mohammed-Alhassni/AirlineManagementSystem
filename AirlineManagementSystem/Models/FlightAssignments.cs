@@ -6,7 +6,7 @@ namespace AirlineManagementSystem.Models
 {
     internal class FlightAssignments
     {
-        public string Flight_Number { get; set; }
-        public string Employee_Id { get; set; }
+        public string FlightNumber { get; set; }
+        public string EmployeeId { get; set; }
     }
 }
