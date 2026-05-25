@@ -26,6 +26,13 @@ namespace AirlineManagementSystem
 
                 Console.WriteLine($"{name}: {value}");
             }
+            
+            List<string> varibles= EntityMethods.ExtractVaribles<Airline>();
+
+            foreach (string varible in varibles)
+            {
+                Console.WriteLine(varible);
+            }
         }
     }
 }
