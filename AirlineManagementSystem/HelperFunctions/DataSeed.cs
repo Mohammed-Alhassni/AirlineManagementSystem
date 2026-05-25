@@ -47,54 +47,54 @@
                 CsvCreator.CreateCsv("ticket", ["Ticket_Id", "Passenger_Id", "Flight_Number", "Seat_Class", "Seat_Number", "Booking_Date_Time", "Ticket_Status", "Final_Price_Paid", "Loyalty_Points_Earned"]);
                 
                 // 1. Admin Rows (Independent)
-                LineInsert.AddRaw("admin", ["MohdAlhsni", "9922", "Mohammed Al Hasni"]);
-                LineInsert.AddRaw("admin", ["SarahJones", "4411", "Sarah Jones"]);
+                LineInsert.AddLine("admin", ["MohdAlhsni", "9922", "Mohammed Al Hasni"]);
+                LineInsert.AddLine("admin", ["SarahJones", "4411", "Sarah Jones"]);
 
                 // 2. Airline Rows (Independent parent)
-                LineInsert.AddRaw("airline", ["WY", "Oman Air", "Oman", "info@omanair.com"]);
-                LineInsert.AddRaw("airline", ["EK", "Emirates", "UAE", "contact@emirates.com"]);
+                LineInsert.AddLine("airline", ["WY", "Oman Air", "Oman", "info@omanair.com"]);
+                LineInsert.AddLine("airline", ["EK", "Emirates", "UAE", "contact@emirates.com"]);
 
                 // 3. Aircraft Rows (Dependent on airline.airline_IATA_code)
-                LineInsert.AddRaw("aircraft", ["A9C-AM", "Boeing 787", "Boeing", "290", "30", "260", "2019", "Active", "WY"]);
-                LineInsert.AddRaw("aircraft", ["A6-EEV", "Airbus A380", "Airbus", "517", "14", "503", "2015", "Active", "EK"]);
+                LineInsert.AddLine("aircraft", ["A9C-AM", "Boeing 787", "Boeing", "290", "30", "260", "2019", "Active", "WY"]);
+                LineInsert.AddLine("aircraft", ["A6-EEV", "Airbus A380", "Airbus", "517", "14", "503", "2015", "Active", "EK"]);
 
                 // 4. Airport Rows (Independent parent)
-                LineInsert.AddRaw("airport", ["MCT", "Muscat International Airport", "Muscat", "Oman", "4"]);
-                LineInsert.AddRaw("airport", ["DXB", "Dubai International Airport", "Dubai", "UAE", "4"]);
-                LineInsert.AddRaw("airport", ["LHR", "Heathrow Airport", "London", "UK", "1"]);
+                LineInsert.AddLine("airport", ["MCT", "Muscat International Airport", "Muscat", "Oman", "4"]);
+                LineInsert.AddLine("airport", ["DXB", "Dubai International Airport", "Dubai", "UAE", "4"]);
+                LineInsert.AddLine("airport", ["LHR", "Heathrow Airport", "London", "UK", "1"]);
 
                 // 5. Flight Rows (Dependent on airport.IATA_code & aircraft.registration_number)
-                LineInsert.AddRaw("flight", ["WY101", "MCT", "LHR", "OMA", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
-                LineInsert.AddRaw("flight", ["EK203", "DXB", "LHR", "UAE", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
+                LineInsert.AddLine("flight", ["WY101", "MCT", "LHR", "OMA", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
+                LineInsert.AddLine("flight", ["EK203", "DXB", "LHR", "UAE", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
 
                 // 6. Crew Member Rows (Dependent on airline.airline_IATA_code)
-                LineInsert.AddRaw("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "LIC-OM-9921", "OMA", "12", "Available"]);
-                LineInsert.AddRaw("crew_member", ["EMP002", "Sarah Jones", "Co-Pilot", "British", "LIC-UK-4412", "UAE", "7", "Available"]);
-                LineInsert.AddRaw("crew_member", ["EMP003", "John Smith", "Cabin Crew", "American", "None", "UAE", "4", "On Leave"]);
+                LineInsert.AddLine("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "LIC-OM-9921", "OMA", "12", "Available"]);
+                LineInsert.AddLine("crew_member", ["EMP002", "Sarah Jones", "Co-Pilot", "British", "LIC-UK-4412", "UAE", "7", "Available"]);
+                LineInsert.AddLine("crew_member", ["EMP003", "John Smith", "Cabin Crew", "American", "None", "UAE", "4", "On Leave"]);
 
                 // 7. Flight Assignments Rows (Dependent on flight.flight_number & crew_member.employee_ID)
-                LineInsert.AddRaw("flight_assignments", ["WY101", "EMP001"]);
-                LineInsert.AddRaw("flight_assignments", ["EK203", "EMP002"]);
+                LineInsert.AddLine("flight_assignments", ["WY101", "EMP001"]);
+                LineInsert.AddLine("flight_assignments", ["EK203", "EMP002"]);
 
                 // 8. Passenger Rows (Dependent on airline.airline_IATA_code)
-                LineInsert.AddRaw("passenger", ["PAS9901", "Ahmed Al-Riyami", "1990-05-12", "Omani", "A8899001", "ahmed@email.com", "+96899887766", "2024-01-15", "1500", "Gold", "pass123!"]);
-                LineInsert.AddRaw("passenger", ["PAS9902", "Emma Watson", "1993-09-20", "British", "B2233445", "emma@email.com", "+447711223344", "2025-03-10", "450", "Silver", "securePwd99"]);
+                LineInsert.AddLine("passenger", ["PAS9901", "Ahmed Al-Riyami", "1990-05-12", "Omani", "A8899001", "ahmed@email.com", "+96899887766", "2024-01-15", "1500", "Gold", "pass123!"]);
+                LineInsert.AddLine("passenger", ["PAS9902", "Emma Watson", "1993-09-20", "British", "B2233445", "emma@email.com", "+447711223344", "2025-03-10", "450", "Silver", "securePwd99"]);
 
                 // 9. Ticket Rows (Dependent on passenger.passenger_id & flight.flight_number)
-                LineInsert.AddRaw("ticket", ["TCK-0001", "PAS9901", "WY101", "Economy", "12A", "2026-05-10 10:30:00", "Confirmed", "450.00", "45"]);
-                LineInsert.AddRaw("ticket", ["TCK-0002", "PAS9902", "EK203", "Business", "02B", "2026-05-12 16:45:00", "Confirmed", "1200.00", "120"]);
+                LineInsert.AddLine("ticket", ["TCK-0001", "PAS9901", "WY101", "Economy", "12A", "2026-05-10 10:30:00", "Confirmed", "450.00", "45"]);
+                LineInsert.AddLine("ticket", ["TCK-0002", "PAS9902", "EK203", "Business", "02B", "2026-05-12 16:45:00", "Confirmed", "1200.00", "120"]);
 
                 // 10. Baggage Rows (Dependent on ticket.ticket_id)
-                LineInsert.AddRaw("baggage", ["BAG-0001", "TCK-0001", "21.5", "Checked", "Checked-In"]);
-                LineInsert.AddRaw("baggage", ["BAG-0002", "TCK-0002", "8.0", "Cabin", "Hand-Carry"]);
+                LineInsert.AddLine("baggage", ["BAG-0001", "TCK-0001", "21.5", "Checked", "Checked-In"]);
+                LineInsert.AddLine("baggage", ["BAG-0002", "TCK-0002", "8.0", "Cabin", "Hand-Carry"]);
 
                 // 11. Promotions Rows (Independent)
-                LineInsert.AddRaw("promotions", ["FLY2026", "15.0", "2026-01-01 00:00:00", "2026-12-31 23:59:59", "500", "142", "Economy", "True"]);
-                LineInsert.AddRaw("promotions", ["BIZCLASS", "20.0", "2026-05-01 00:00:00", "2026-08-31 23:59:59", "100", "12", "Business", "True"]);
+                LineInsert.AddLine("promotions", ["FLY2026", "15.0", "2026-01-01 00:00:00", "2026-12-31 23:59:59", "500", "142", "Economy", "True"]);
+                LineInsert.AddLine("promotions", ["BIZCLASS", "20.0", "2026-05-01 00:00:00", "2026-08-31 23:59:59", "100", "12", "Business", "True"]);
 
                 // 12. User Logs Rows (Dependent on user mapping constraint: Admin ID or Passenger ID)
-                LineInsert.AddRaw("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Login", "MohdAlhsni"]);
-                LineInsert.AddRaw("user_logs", ["LOG-0002", "2026-05-19 10:15:00", "Ticket Booking", "PAS9901"]);
+                LineInsert.AddLine("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Login", "MohdAlhsni"]);
+                LineInsert.AddLine("user_logs", ["LOG-0002", "2026-05-19 10:15:00", "Ticket Booking", "PAS9901"]);
             }
             catch (Exception e)
             {

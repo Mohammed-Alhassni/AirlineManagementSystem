@@ -6,7 +6,7 @@ namespace AirlineManagementSystem.FileHandling
 {
     internal class LineInsert
     {
-        public static void AddRaw(string fileName, string[] values, bool isBinDirectory = false)
+        public static void AddLine(string fileName, string[] values, bool isBinDirectory = false)
         {
             try
             {
