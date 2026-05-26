@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AirlineManagementSystem.HelperFunctions
 {
-    public class EntityMethods
+    public static class EntityMethods
     {
         internal static List<string> ExtractVaribles<T>(bool cleanString = true) where T : new()
         {

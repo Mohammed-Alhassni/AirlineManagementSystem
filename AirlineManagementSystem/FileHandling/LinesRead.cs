@@ -1,6 +1,6 @@
 ﻿namespace AirlineManagementSystem.FileHandling
 {
-    internal class LinesRead
+    internal static class LinesRead
     {
         internal static string ReadLine(string filePath, int lineNumber = 1)
         {

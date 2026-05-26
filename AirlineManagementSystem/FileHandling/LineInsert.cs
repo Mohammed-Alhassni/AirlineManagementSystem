@@ -1,6 +1,6 @@
 ﻿namespace AirlineManagementSystem.FileHandling
 {
-    internal class LineInsert
+    internal static class LineInsert
     {
         /// <summary>
         /// Adds new raw of values to existing entity 

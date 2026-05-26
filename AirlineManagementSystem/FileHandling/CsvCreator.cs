@@ -1,6 +1,6 @@
 ﻿namespace AirlineManagementSystem.FileHandling
 {
-    internal class CsvCreator
+    internal static class CsvCreator
     {
         ///<summary>
         ///

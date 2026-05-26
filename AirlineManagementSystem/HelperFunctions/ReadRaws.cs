@@ -2,7 +2,7 @@
 
 namespace AirlineManagementSystem.HelperFunctions
 {
-    internal class ReadRaws
+    internal static class ReadRaws
     {
         internal static Dictionary<string, string> ReadRawByPk(string fileName, string primaryKey, bool isBinDirectory = false)
         {

@@ -2,7 +2,7 @@
 
 namespace AirlineManagementSystem.HelperFunctions
 {
-    internal class DataSeed
+    internal static class DataSeed
     {
         /// <summary>
         /// Generates all schema CSV files from the SkyTrack ERD. If they exist, they will be deleted
