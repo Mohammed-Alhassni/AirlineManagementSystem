@@ -2,6 +2,7 @@
 using AirlineManagementSystem.Models;
 using System.Reflection;
 using AirlineManagementSystem.HelperFunctions;
+using AirlineManagementSystem.IntegrityValidation;
 
 namespace AirlineManagementSystem
 {
@@ -11,28 +12,28 @@ namespace AirlineManagementSystem
         {
             DataSeed.DataInitialize();
 
-            Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPk("airline", "EK"));
+            //Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPk("airline", "EK"));
 
-            Type type = myObj.GetType();
+            //Type type = myObj.GetType();
 
-            // 2. Fetch all public instance properties
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            //// 2. Fetch all public instance properties
+            //PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            // 3. Loop through and display them
-            foreach (PropertyInfo prop in properties)
-            {
-                string name = prop.Name;
-                object value = prop.GetValue(myObj, null) ?? "null"; // Handle potential null values safely
+            //// 3. Loop through and display them
+            //foreach (PropertyInfo prop in properties)
+            //{
+            //    string name = prop.Name;
+            //    object value = prop.GetValue(myObj, null) ?? "null"; // Handle potential null values safely
 
-                Console.WriteLine($"{name}: {value}");
-            }
-            
-            List<string> varibles= EntityMethods.ExtractVaribles<Airline>();
+            //    Console.WriteLine($"{name}: {value}");
+            //}
 
-            foreach (string varible in varibles)
-            {
-                Console.WriteLine(varible);
-            }
+            //List<string> varibles= EntityMethods.ExtractVaribles<Airline>();
+
+            //foreach (string varible in varibles)
+            //{
+            //    Console.WriteLine(varible);
+            //}
         }
     }
 }
