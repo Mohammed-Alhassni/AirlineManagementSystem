@@ -1,3 +1,5 @@
+using AirlineManagementSystem.CustomAttributes;
+
 namespace AirlineManagementSystem.Models;
 
 public class CrewMember
@@ -7,6 +9,7 @@ public class CrewMember
     public string Role { get; set; }
     public string Nationality { get; set; }
     public string LicenseNumber { get; set; } // Nullable if needed, kept as string
+    [ForeignKey("airline")]
     public string AirlineAffiliationIcao { get; set; }
     public int YearsExperience { get; set; }
     public string AvailabilityStatus { get; set; }

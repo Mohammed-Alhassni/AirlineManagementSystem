@@ -15,7 +15,7 @@ namespace AirlineManagementSystem.Models
         public int EconomyClassSeatCount { get; set; }
         public int ManufacturingYear { get; set; }
         public string OperationalStatus { get; set; }
-        [ForeignKey("airline", "IATA_code")]
+        [ForeignKey("airline")]
         public string AirlineIataCode { get; set; }
     }
 }
