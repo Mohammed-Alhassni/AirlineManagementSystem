@@ -19,10 +19,12 @@ namespace AirlineManagementSystem.HelperFunctions
 
                 T TargetObj = EntityMapper.MapToEntity<T>(ValuesDictionary);
 
-                FKValidate.ValidateFK(TargetObj);
+                bool validFks = FKValidate.ValidateFK(TargetObj);
 
-                LineInsert.AddLine(fileName, values, isBinDirectory);
-
+                if (validFks)
+                {
+                    LineInsert.AddLine(fileName, values, isBinDirectory);
+                }
             }
             catch (Exception ex)
             {
