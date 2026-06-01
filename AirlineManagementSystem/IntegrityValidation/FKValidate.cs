@@ -39,7 +39,7 @@ namespace AirlineManagementSystem.IntegrityValidation
                 }
             }
 
-            return false;
+            return true;
         }
     }
 }
