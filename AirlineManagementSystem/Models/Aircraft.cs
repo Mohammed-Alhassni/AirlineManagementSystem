@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AirlineManagementSystem.CustomAttributes;
 
 namespace AirlineManagementSystem.Models
 {
@@ -14,6 +15,7 @@ namespace AirlineManagementSystem.Models
         public int EconomyClassSeatCount { get; set; }
         public int ManufacturingYear { get; set; }
         public string OperationalStatus { get; set; }
+        [ForeignKey("airline", "IATA_code")]
         public string AirlineIataCode { get; set; }
     }
 }
