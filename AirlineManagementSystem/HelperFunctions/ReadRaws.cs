@@ -19,6 +19,12 @@ namespace AirlineManagementSystem.HelperFunctions
                 string[] headers = headerLine.Split(",");
                 string[] values = raw.Split(",");
 
+                if (!values[0].Equals(primaryKey))
+                {
+                    Console.WriteLine($"Primary Key: {primaryKey} does not exist in {fileName}");
+                    return new Dictionary<string, string>();
+                }
+
                 for (int i= 0; i < headers.Length && i < values.Length; i++)
                 {
                     record.Add(headers[i], values[i]);
