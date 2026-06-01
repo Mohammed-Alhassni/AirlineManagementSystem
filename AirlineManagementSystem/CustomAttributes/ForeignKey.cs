@@ -11,13 +11,11 @@ namespace AirlineManagementSystem.CustomAttributes
         /// This should target csv entities as for now
         /// </summary>
         public string LinkedTable { get; }
-        public string LinkedColumn { get; }
 
         // Constructor forces you to provide these details when using the attribute
-        public ForeignKeyAttribute(string linkedTable, string linkedColumn)
+        public ForeignKeyAttribute(string linkedTable)
         {
             LinkedTable = linkedTable;
-            LinkedColumn = linkedColumn;
         }
     }
 }
