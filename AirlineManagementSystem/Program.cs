@@ -3,6 +3,7 @@ using AirlineManagementSystem.Models;
 using System.Reflection;
 using AirlineManagementSystem.HelperFunctions;
 using AirlineManagementSystem.IntegrityValidation;
+using AirlineManagementSystem.UserInterface;
 
 namespace AirlineManagementSystem
 {
@@ -11,6 +12,8 @@ namespace AirlineManagementSystem
         static void Main(string[] args)
         {
             DataSeed.DataInitialize();
+
+            WelcomeScreen.ShowWelcomeScreen();
 
             //Airline myObj = EntityMapper.MapToEntity<Airline>(ReadRaws.ReadRawByPk("airline", "EK"));
 
@@ -28,7 +31,7 @@ namespace AirlineManagementSystem
             //    Console.WriteLine($"{name}: {value}");
             //}
 
-            //List<string> varibles= EntityMethods.ExtractVaribles<Airline>();
+            //List<string> varibles = EntityMethods.ExtractVaribles<Airline>();
 
             //foreach (string varible in varibles)
             //{
