@@ -36,7 +36,7 @@ namespace AirlineManagementSystem.HelperFunctions
                     }
                 }
 
-                CsvCreator.CreateCsv("admin", ["username", "password", "name"]);
+                CsvCreator.CreateCsv("admin", ["username", "email", "password", "name"]);
                 CsvCreator.CreateCsv("airline", ["IATA_code", "name", "country_of_registration", "contact_information"]);
                 CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_IATA_code"]);
                 CsvCreator.CreateCsv("airport", ["Iata_Code", "Full_Name", "City", "Country", "Time_Zone_Offset"]);                
@@ -50,8 +50,8 @@ namespace AirlineManagementSystem.HelperFunctions
                 CsvCreator.CreateCsv("ticket", ["Ticket_Id", "Passenger_Id", "Flight_Number", "Seat_Class", "Seat_Number", "Booking_Date_Time", "Ticket_Status", "Final_Price_Paid", "Loyalty_Points_Earned"]);
 
                 // 1. Admin Rows (Independent)
-                WriteRaws.InsertValues<Admin>("admin", ["MohdAlhsni", "9922", "Mohammed Al Hasni"]);
-                WriteRaws.InsertValues<Admin>("admin", ["SarahJones", "4411", "Sarah Jones"]);
+                WriteRaws.InsertValues<Admin>("admin", ["MohdAlhsni", "MohdAD@email.com", "9922", "Mohammed Al Hasni"]);
+                WriteRaws.InsertValues<Admin>("admin", ["SarahJones", "SarahAD@email.com", "4411", "Sarah Jones"]);
 
                 // 2. Airline Rows (Independent parent)
                 WriteRaws.InsertValues<Airline>("airline", ["WY", "Oman Air", "Oman", "info@omanair.com"]);
