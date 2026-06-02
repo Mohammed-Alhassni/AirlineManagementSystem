@@ -49,6 +49,10 @@ namespace AirlineManagementSystem.HelperFunctions
                 CsvCreator.CreateCsv("user_logs", ["Log_Id", "Timestamp", "Action_Type", "Acting_User_Id"]);
                 CsvCreator.CreateCsv("ticket", ["Ticket_Id", "Passenger_Id", "Flight_Number", "Seat_Class", "Seat_Number", "Booking_Date_Time", "Ticket_Status", "Final_Price_Paid", "Loyalty_Points_Earned"]);
 
+                //Thread.Sleep(1000);
+
+                Console.Clear();
+
                 // 1. Admin Rows (Independent)
                 WriteRaws.InsertValues<Admin>("admin", ["MohdAlhsni", "MohdAD@email.com", "9922", "Mohammed Al Hasni"]);
                 WriteRaws.InsertValues<Admin>("admin", ["SarahJones", "SarahAD@email.com", "4411", "Sarah Jones"]);
@@ -98,6 +102,10 @@ namespace AirlineManagementSystem.HelperFunctions
                 // 12. User Logs Rows (Dependent on user mapping constraint: Admin ID or Passenger ID)
                 WriteRaws.InsertValues<UserLog>("user_logs", ["LOG-0001", "2026-05-19 10:00:00", "Login", "MohdAlhsni"]);
                 WriteRaws.InsertValues<UserLog>("user_logs", ["LOG-0002", "2026-05-19 10:15:00", "Ticket Booking", "PAS9901"]);
+
+                //Thread.Sleep(1000);
+
+                Console.Clear();
             }
             catch (Exception e)
             {
