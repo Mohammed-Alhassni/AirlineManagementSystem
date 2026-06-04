@@ -12,7 +12,7 @@ namespace AirlineManagementSystem.UserInterface
             string[] buttons = ["Login", "Exit"];
 
             int currentSelection = 0;
-            int totalElements = fields.Length + buttons.Length; 
+            int totalElements = fields.Length + buttons.Length;
 
             bool isAdmin= false;
             string email = "";
@@ -60,7 +60,7 @@ namespace AirlineManagementSystem.UserInterface
                             {
                                 isAdmin = true;
                                 email= temp;
-                        }
+                            }
                             else if (ReadRaws.ReadRawByWord("passenger", temp).Count > 0)
                             {
                                 isAdmin=false;
@@ -77,11 +77,29 @@ namespace AirlineManagementSystem.UserInterface
                         else if (currentSelection == 1) // Password field
                         {
                             Console.CursorVisible = true;
-                            password = IOHelpers.ReadFieldInput("Enter Password: ", maskInput: true);
+                            if (email != "")
+                            {
+                                password = IOHelpers.ReadFieldInput("Enter Password: ", maskInput: true);
+                            }
+                            else
+                            {
+                                Console.CursorVisible = false;
+                                Console.WriteLine($"Enter your email first !");
+                                Thread.Sleep(2000);
+                                Console.CursorVisible = true;
+                            }
                         }
                         else if (currentSelection == 2) // [ Login ] button
                         {
-                            // Run validation logic
+                            string entity = isAdmin ? "admin" : "passenger";
+                            if (ReadRaws.ReadRawByWord(entity, email)["password"].Equals(password))
+                            {
+                                Console.CursorVisible = false;
+                                Console.WriteLine("Login Success.");
+                                Thread.Sleep(2000);
+                                Console.CursorVisible = true;
+
+                            }
                         }
                         else if (currentSelection == 3) // [ Exit ] button
                         {
