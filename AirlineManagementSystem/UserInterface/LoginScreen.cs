@@ -98,7 +98,19 @@ namespace AirlineManagementSystem.UserInterface
                                 Console.WriteLine("Login Success.");
                                 Thread.Sleep(2000);
                                 Console.CursorVisible = true;
+                            }
 
+                            if (isAdmin)
+                            {
+                                interacting = false;
+                                AdminDashboard.ShowAdminDashboard();
+                                
+                            }
+                            else
+                            {
+                                interacting = false;
+                                PassengerPortal.ShowPassengerPortal();
+                                
                             }
                         }
                         else if (currentSelection == 3) // [ Exit ] button
