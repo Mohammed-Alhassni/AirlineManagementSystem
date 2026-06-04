@@ -5,9 +5,20 @@ using System.Text;
 
 namespace AirlineManagementSystem.UIHelpers
 {
-    internal class BorderedSqure
+    internal class MenuElements
     {
-        internal static void RenderMenuBox(string title, string description, string[] options, string instructions, int selectedIndex)
+        /// <summary>
+        /// Renders a responsive, centered layout box with double borders to the console window. 
+        /// Supports standard navigation menu lists or a distinct interactive data-entry form context.
+        /// </summary>
+        /// <param name="title">The primary visual header string centered at the top of the box layout.</param>
+        /// <param name="description">An optional instructional summary string displayed immediately beneath the title region.</param>
+        /// <param name="options">An array of core textual menu options or data field lines to map into the primary interactive stack.</param>
+        /// <param name="instructions">An optional small status bar context message pinned dynamically above the base line of the frame structure.</param>
+        /// <param name="selectedIndex">The unified layout array tracker index denoting the currently active or focused selectable line block.</param>
+        /// <param name="isInputMode">Determines form presentation characteristics; transforms numeric ordered menus into plain string selectors and activates button rendering loops if true.</param>
+        /// <param name="buttons">An optional array of strings defining individual action flags (such as Submit or Back) spaced beneath input regions.</param>
+        internal static void RenderMenuBox(string title, string description, string[] options, string instructions, int selectedIndex, bool isInputMode = false, string[] buttons = null)
         {
             // Force UTF8 encoding so all double-line characters render perfectly
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -20,8 +31,9 @@ namespace AirlineManagementSystem.UIHelpers
             ConsoleColor highlightFg = ConsoleColor.Black;
 
             int sidePadding = 4;
+            int minWidth = 60;
 
-            // 1. Find the longest string among all elements to determine the required internal width
+            // 1. Calculate length limits including input options
             int maxTextLength = title?.Length ?? 0;
             if (!string.IsNullOrEmpty(description) && description.Length > maxTextLength)
                 maxTextLength = description.Length;
@@ -30,38 +42,41 @@ namespace AirlineManagementSystem.UIHelpers
 
             if (options != null && options.Length > 0)
             {
-                // Account for the "[X] " prefix padding in option length calculations
-                int maxOptionLength = options.Max(o => o.Length) + 4;
+                //4 because we add [] when display 
+                //2 beacuse we add > when display 
+                int maxOptionLength = options.Max(o => o.Length) + (isInputMode ? 2 : 4);
                 if (maxOptionLength > maxTextLength) maxTextLength = maxOptionLength;
             }
 
-            // Calculate total box dimensions
-            int internalWidth = maxTextLength + (sidePadding * 2);
+            // Include button length requirements if they exist
+            if (buttons != null && buttons.Length > 0)
+            {
+                int maxButtonLength = buttons.Max(b => b.Length);
+                if (maxButtonLength > maxTextLength) maxTextLength = maxButtonLength;
+            }
+
+            int internalWidth = Math.Max(minWidth, maxTextLength + (sidePadding * 2));
             int totalBoxWidth = internalWidth + 2;
 
-            // 2. Dynamically calculate center offset based on window size
             int currentScreenWidth = Console.WindowWidth;
             int leftOffset = Math.Max(0, (currentScreenWidth - totalBoxWidth) / 2);
             string leftRightSpaces = new string(' ', leftOffset);
 
-            // ====================================================================
             // 3. Render System Header Text ABOVE the Box
-            // ====================================================================
             string headerText = "AIRLINE MANAGEMENT SYSTEM";
             int headerOffset = Math.Max(0, (currentScreenWidth - headerText.Length) / 2);
 
-            Console.WriteLine(); // Blank line at the absolute top
-            Console.ForegroundColor = ConsoleColor.Yellow; // Bold standout color
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(new string(' ', headerOffset) + headerText);
             Console.ResetColor();
-            Console.WriteLine(); // Small spacer gap before the box starts
+            Console.WriteLine();
 
             // 4. Create border blocks
             string horizontalLine = new string('═', internalWidth);
             string emptyLine = new string(' ', internalWidth);
             string dividerLine = new string('╌', internalWidth);
 
-            // Helper to print standard structural lines (borders, dividers)
             void PrintStructure(string borderLeft, string content, string borderRight)
             {
                 Console.ForegroundColor = borderAndTitleColor;
@@ -73,7 +88,7 @@ namespace AirlineManagementSystem.UIHelpers
             // 5. Render Top Border
             PrintStructure("╔", horizontalLine, "╗");
 
-            // 6. Render Title (Centered & Uppercase)
+            // 6. Render Title
             if (!string.IsNullOrEmpty(title))
             {
                 int totalPaddingNeeded = internalWidth - title.Length;
@@ -105,30 +120,27 @@ namespace AirlineManagementSystem.UIHelpers
                 PrintStructure("║", emptyLine, "║");
             }
 
-            // 8. Render Options
-            if (options != null && options.Length > 0)
+            // 8. Render Input Fields or Options
+            int optionsCount = options?.Length ?? 0;
+            if (options != null && optionsCount > 0)
             {
-                for (int i = 0; i < options.Length; i++)
+                for (int i = 0; i < optionsCount; i++)
                 {
                     bool isSelected = (i == selectedIndex);
-                    string optionText = $"[{i + 1}] {options[i]}";
+                    string optionText = isInputMode ? $"> {options[i]}" : $"[{i + 1}] {options[i]}";
 
                     int totalPaddingNeeded = internalWidth - optionText.Length;
                     string leftPad = new string(' ', sidePadding);
                     string rightPad = new string(' ', totalPaddingNeeded - sidePadding);
 
-                    // Left Border
                     Console.ForegroundColor = borderAndTitleColor;
                     Console.Write($"{leftRightSpaces}║");
 
                     if (isSelected)
                     {
-                        // Swap colors for the entire background block of this option line
                         Console.BackgroundColor = highlightBg;
                         Console.ForegroundColor = highlightFg;
                         Console.Write($"{leftPad}{optionText}{rightPad}");
-
-                        // Reset colors immediately after printing text block
                         Console.ResetColor();
                     }
                     else
@@ -137,7 +149,43 @@ namespace AirlineManagementSystem.UIHelpers
                         Console.Write($"{leftPad}{optionText}{rightPad}");
                     }
 
-                    // Right Border
+                    Console.ForegroundColor = borderAndTitleColor;
+                    Console.WriteLine("║");
+                }
+            }
+
+            // 8b. Render Action Buttons (Input Mode specific layout - Left-Aligned)
+            if (isInputMode && buttons != null && buttons.Length > 0)
+            {
+                // One blank separator line between fields and the first button
+                PrintStructure("║", emptyLine, "║");
+
+                for (int b = 0; b < buttons.Length; b++)
+                {
+                    bool isSelected = ((optionsCount + b) == selectedIndex);
+                    string buttonText = buttons[b];
+
+                    // Use consistent side padding to align exactly with input fields
+                    int totalPaddingNeeded = internalWidth - buttonText.Length;
+                    string leftPad = new string(' ', sidePadding);
+                    string rightPad = new string(' ', totalPaddingNeeded - sidePadding);
+
+                    Console.ForegroundColor = borderAndTitleColor;
+                    Console.Write($"{leftRightSpaces}║");
+
+                    if (isSelected)
+                    {
+                        Console.BackgroundColor = highlightBg;
+                        Console.ForegroundColor = highlightFg;
+                        Console.Write($"{leftPad}{buttonText}{rightPad}");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = textColor;
+                        Console.Write($"{leftPad}{buttonText}{rightPad}");
+                    }
+
                     Console.ForegroundColor = borderAndTitleColor;
                     Console.WriteLine("║");
                 }
