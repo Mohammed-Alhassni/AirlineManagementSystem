@@ -38,5 +38,40 @@ namespace AirlineManagementSystem.HelperFunctions
                 return new Dictionary<string, string>();
             }
         }
+
+        internal static Dictionary<string, string> ReadRawByWord(string fileName, string word, bool isBinDirectory = false)
+        {
+            try
+            {
+                Dictionary<string, string> record = new Dictionary<string, string>();
+
+                string filePath = Path.Combine("Data", $"{fileName}.csv");
+                if (!isBinDirectory) { filePath = Path.Combine("..", "..", "..", filePath); }
+
+                string headerLine = LinesRead.ReadLine(filePath);
+                string raw = LinesRead.ReturnLineByWord(filePath, word);
+
+                string[] headers = headerLine.Split(",");
+                string[] values = raw.Split(",");
+
+                if (!values.Contains(word))
+                {
+                    //Console.WriteLine($"Word: {word} does not exist in {fileName}");
+                    return new Dictionary<string, string>();
+                }
+
+                for (int i = 0; i < headers.Length && i < values.Length; i++)
+                {
+                    record.Add(headers[i], values[i]);
+                }
+
+                return record;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading {fileName}: {ex.Message}");
+                return new Dictionary<string, string>();
+            }
+        }
     }
 }
