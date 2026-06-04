@@ -1,5 +1,6 @@
-﻿using AirlineManagementSystem.UIHelpers;
-﻿using AirlineManagementSystem.UIHelpers;
+﻿using AirlineManagementSystem.FileHandling;
+using AirlineManagementSystem.HelperFunctions;
+using AirlineManagementSystem.UIHelpers;
 
 namespace AirlineManagementSystem.UserInterface
 {
@@ -13,7 +14,8 @@ namespace AirlineManagementSystem.UserInterface
             int currentSelection = 0;
             int totalElements = fields.Length + buttons.Length; 
 
-            string Email = "";
+            bool isAdmin= false;
+            string email = "";
             string password = "";
             bool interacting = true;
 
@@ -23,7 +25,7 @@ namespace AirlineManagementSystem.UserInterface
                 Console.Clear();
 
                 string[] currentDisplayFields = [
-                    $"{fields[0]}: {Email}",
+                    $"{fields[0]}: {email}",
                     $"{fields[1]}: {new string('*', password.Length)}"
                 ];
 
@@ -53,7 +55,24 @@ namespace AirlineManagementSystem.UserInterface
                         if (currentSelection == 0) // Email field
                         {
                             Console.CursorVisible = true;
-                            Email = IOHelpers.ReadFieldInput("Enter Email: ");
+                            string temp = IOHelpers.ReadFieldInput("Enter Email: ");
+                            if (ReadRaws.ReadRawByWord("admin", temp).Count > 0)
+                            {
+                                isAdmin = true;
+                                email= temp;
+                        }
+                            else if (ReadRaws.ReadRawByWord("passenger", temp).Count > 0)
+                            {
+                                isAdmin=false;
+                                email = temp;
+                            }
+                            else
+                            {
+                                Console.CursorVisible=false;
+                                Console.WriteLine($"The email \"{temp}\" does not exist.");
+                                Thread.Sleep(2000);
+                                Console.CursorVisible = true;
+                            }
                         }
                         else if (currentSelection == 1) // Password field
                         {
