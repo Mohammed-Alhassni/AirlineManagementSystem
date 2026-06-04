@@ -37,17 +37,17 @@ namespace AirlineManagementSystem.HelperFunctions
                 }
 
                 CsvCreator.CreateCsv("admin", ["username", "email", "password", "name"]);
-                CsvCreator.CreateCsv("airline", ["IATA_code", "name", "country_of_registration", "contact_information"]);
-                CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_IATA_code"]);
-                CsvCreator.CreateCsv("airport", ["Iata_Code", "Full_Name", "City", "Country", "Time_Zone_Offset"]);                
-                CsvCreator.CreateCsv("flight", ["Flight_Number", "Origin_Airport_Iata", "Destination_Airport_Iata", "Airline_Icao_Code", "Aircraft_Registration", "Scheduled_Departure_Datetime", "Scheduled_Arrival_Datetime", "Actual_Departure_Datetime", "Actual_Arrival_Datetime", "Status", "Available_Business_Seats", "Available_Economy_Seats", "Base_Price"]);
-                CsvCreator.CreateCsv("crew_member", ["Employee_Id", "Full_Name", "Role", "Nationality", "License_Number", "Airline_Affiliation_Icao", "Years_Experience", "Availability_Status"]);                
+                CsvCreator.CreateCsv("airline", ["iata_code", "name", "country_of_registration", "contact_information"]);
+                CsvCreator.CreateCsv("aircraft", ["registration_number", "model", "manufacturer", "total_seat_capacity", "business_class_seat_count", "economy_class_seat_count", "manufacturing_year", "operational_status", "airline_iata_code"]);
+                CsvCreator.CreateCsv("airport", ["iata_code", "full_name", "city", "country", "time_zone_offset"]);
+                CsvCreator.CreateCsv("flight", ["flight_number", "origin_airport_iata", "destination_airport_iata", "airline_icao_code", "aircraft_registration", "scheduled_departure_datetime", "scheduled_arrival_datetime", "actual_departure_datetime", "actual_arrival_datetime", "status", "available_business_seats", "available_economy_seats", "base_price"]);
+                CsvCreator.CreateCsv("crew_member", ["employee_id", "full_name", "role", "nationality", "license_number", "airline_affiliation_icao", "years_experience", "availability_status"]);
                 CsvCreator.CreateCsv("flight_assignments", ["flight_number", "employee_id"]);
-                CsvCreator.CreateCsv("passenger", ["Passenger_Id", "Full_Name", "Date_Of_Birth", "Nationality", "Passport_Number", "Email", "Phone", "Registration_Date", "Loyalty_Points_Balance", "Tier_Status", "Password"]);                
+                CsvCreator.CreateCsv("passenger", ["passenger_id", "full_name", "date_of_birth", "nationality", "passport_number", "email", "phone", "registration_date", "loyalty_points_balance", "tier_status", "password"]);
                 CsvCreator.CreateCsv("baggage", ["baggage_id", "ticket_id", "weight_kg", "baggage_type", "status"]);
-                CsvCreator.CreateCsv("promotions", ["Promo_Code", "Discount_Percentage", "Validity_Start_Date", "Validity_End_Date", "Max_Uses", "Current_Use_Count", "Applicable_Fare_Class", "Active_Status"]);                
-                CsvCreator.CreateCsv("user_logs", ["Log_Id", "Timestamp", "Action_Type", "Acting_User_Id"]);
-                CsvCreator.CreateCsv("ticket", ["Ticket_Id", "Passenger_Id", "Flight_Number", "Seat_Class", "Seat_Number", "Booking_Date_Time", "Ticket_Status", "Final_Price_Paid", "Loyalty_Points_Earned"]);
+                CsvCreator.CreateCsv("promotions", ["promo_code", "discount_percentage", "validity_start_date", "validity_end_date", "max_uses", "current_use_count", "applicable_fare_class", "active_status"]);
+                CsvCreator.CreateCsv("user_logs", ["log_id", "timestamp", "action_type", "acting_user_id"]);
+                CsvCreator.CreateCsv("ticket", ["ticket_id", "passenger_id", "flight_number", "seat_class", "seat_number", "booking_date_time", "ticket_status", "final_price_paid", "loyalty_points_earned"]);
 
                 //Thread.Sleep(1000);
 
