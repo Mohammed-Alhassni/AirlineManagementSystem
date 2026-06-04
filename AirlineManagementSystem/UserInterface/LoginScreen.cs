@@ -1,7 +1,5 @@
 ﻿using AirlineManagementSystem.UIHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AirlineManagementSystem.UIHelpers;
 
 namespace AirlineManagementSystem.UserInterface
 {
@@ -9,13 +7,13 @@ namespace AirlineManagementSystem.UserInterface
     {
         internal static void ShowLoginScreen()
         {
-            string[] fields = ["Username", "Password"];
+            string[] fields = ["Email", "Password"];
             string[] buttons = ["Login", "Exit"];
 
             int currentSelection = 0;
             int totalElements = fields.Length + buttons.Length; 
 
-            string username = "";
+            string Email = "";
             string password = "";
             bool interacting = true;
 
@@ -25,7 +23,7 @@ namespace AirlineManagementSystem.UserInterface
                 Console.Clear();
 
                 string[] currentDisplayFields = [
-                    $"{fields[0]}: {username}",
+                    $"{fields[0]}: {Email}",
                     $"{fields[1]}: {new string('*', password.Length)}"
                 ];
 
@@ -52,10 +50,10 @@ namespace AirlineManagementSystem.UserInterface
                         break;
 
                     case ConsoleKey.Enter:
-                        if (currentSelection == 0) // Username field
+                        if (currentSelection == 0) // Email field
                         {
                             Console.CursorVisible = true;
-                            username = IOHelpers.ReadFieldInput("Enter Username: ");
+                            Email = IOHelpers.ReadFieldInput("Enter Email: ");
                         }
                         else if (currentSelection == 1) // Password field
                         {
