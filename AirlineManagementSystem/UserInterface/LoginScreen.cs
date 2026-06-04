@@ -55,12 +55,12 @@ namespace AirlineManagementSystem.UserInterface
                         if (currentSelection == 0) // Username field
                         {
                             Console.CursorVisible = true;
-                            username = ReadFieldInput("Enter Username: ");
+                            username = IOHelpers.ReadFieldInput("Enter Username: ");
                         }
                         else if (currentSelection == 1) // Password field
                         {
                             Console.CursorVisible = true;
-                            password = ReadFieldInput("Enter Password: ", maskInput: true);
+                            password = IOHelpers.ReadFieldInput("Enter Password: ", maskInput: true);
                         }
                         else if (currentSelection == 2) // [ Login ] button
                         {
@@ -75,36 +75,6 @@ namespace AirlineManagementSystem.UserInterface
                 }
             }
         }
-
-        // Helper method to collect inputs without breaking the styling workflow
-        private static string ReadFieldInput(string prompt, bool maskInput = false)
-        {
-            Console.WriteLine($"\n   {prompt}");
-            Console.Write("   > ");
-
-            if (!maskInput)
-            {
-                return Console.ReadLine() ?? "";
-            }
-
-            // Masked password input logic
-            string pass = "";
-            while (true)
-            {
-                var key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.Enter) break;
-                if (key.Key == ConsoleKey.Backspace && pass.Length > 0)
-                {
-                    pass = pass[..^1];
-                    Console.Write("\b \b");
-                }
-                else if (!char.IsControl(key.KeyChar))
-                {
-                    pass += key.KeyChar;
-                    Console.Write("*");
-                }
-            }
-            return pass;
-        }
     }
 }
+
