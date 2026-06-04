@@ -22,7 +22,7 @@ namespace AirlineManagementSystem.UserInterface
                 Console.Clear();
 
                 // Pass the currentSelection so the box knows which line to highlight
-                BorderedSqure.RenderMenuBox(
+                MenuElements.RenderMenuBox(
                     "Main Menu",
                     "Welcome back. Select an option to proceed.",
                     options,
@@ -66,14 +66,18 @@ namespace AirlineManagementSystem.UserInterface
             switch (selection)
             {
                 case "Login":
-                    
-                    
+                    LoginScreen.ShowLoginScreen();
                     break;
                 case "Register":
                     
                     break;
                 case "Exit":
+                    //Display the message goodbye then after 2 secs exit
+                    Console.CursorVisible =false;
                     Console.WriteLine("Goodbye!");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    Console.CursorVisible = true;
                     Environment.Exit(0);
                     break;
             }
