@@ -13,6 +13,7 @@ namespace AirlineManagementSystem.UserInterface
             string[] options = ["Login", "Register", "Exit"];
             int currentSelection = 0;
             bool interacting = true;
+            int timesTried = 0;
 
             // Hide the blinking cursor 
             Console.CursorVisible = false;
@@ -58,15 +59,15 @@ namespace AirlineManagementSystem.UserInterface
             Console.Clear();
 
             // 10. Handle the action based on what they selected
-            ExecuteMenuAction(options[currentSelection]);
+            ExecuteMenuAction(options[currentSelection], ref timesTried);
         }
 
-        private static void ExecuteMenuAction(string selection)
+        private static void ExecuteMenuAction(string selection, ref int timesTried)
         {
             switch (selection)
             {
                 case "Login":
-                    LoginScreen.ShowLoginScreen();
+                    LoginScreen.ShowLoginScreen(ref timesTried);
                     break;
                 case "Register":
                     

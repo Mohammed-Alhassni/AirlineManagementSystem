@@ -6,7 +6,7 @@ namespace AirlineManagementSystem.UserInterface
 {
     internal class LoginScreen
     {
-        internal static void ShowLoginScreen()
+        internal static void ShowLoginScreen(ref int timesTried)
         {
             string[] fields = ["Email", "Password"];
             string[] buttons = ["Login", "Exit"];
@@ -18,6 +18,7 @@ namespace AirlineManagementSystem.UserInterface
             string email = "";
             string password = "";
             bool interacting = true;
+            string token = "";
 
             while (interacting)
             {
@@ -92,26 +93,42 @@ namespace AirlineManagementSystem.UserInterface
                         else if (currentSelection == 2) // [ Login ] button
                         {
                             string entity = isAdmin ? "admin" : "passenger";
-                            if (ReadRaws.ReadRawByWord(entity, email)["password"].Equals(password))
+                            if (ReadRaws.ReadRawByWord(entity, email)["password"].Equals(password) && timesTried <= 3)
                             {
                                 Console.CursorVisible = false;
                                 Console.WriteLine("Login Success.");
+                                token = "PlaceHolder";
                                 Thread.Sleep(2000);
                                 Console.CursorVisible = true;
                             }
+                            else
+                            {
+                                timesTried++;
+                                if (timesTried <= 3)
+                                {
+                                    Console.WriteLine("Invalid Credentials");
+                                    Thread.Sleep(2000);
+                                }
 
-                            if (isAdmin)
+                                if (timesTried > 3)
+                                {
+                                    Console.WriteLine("Account locked: Too many login trails. ");
+                                    Thread.Sleep(2000);
+                                }
+                            }
+
+                            if (isAdmin && token.Equals("PlaceHolder"))
                             {
                                 interacting = false;
                                 AdminDashboard.ShowAdminDashboard();
                                 
                             }
-                            else
+                            else if (token.Equals("PlaceHolder"))
                             {
                                 interacting = false;
                                 PassengerPortal.ShowPassengerPortal();
                                 
-                            }
+                            } 
                         }
                         else if (currentSelection == 3) // [ Exit ] button
                         {
