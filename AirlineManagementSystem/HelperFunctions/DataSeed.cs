@@ -71,8 +71,8 @@ namespace AirlineManagementSystem.HelperFunctions
                 WriteRaws.InsertValues<Airport>("airport", ["LHR", "Heathrow Airport", "London", "UK", "1"]);
 
                 // 5. Flight Rows (Dependent on airport.IATA_code & aircraft.registration_number)
-                WriteRaws.InsertValues<Flight>("flight", ["WY101", "MCT", "LHR", "OMA", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
-                WriteRaws.InsertValues<Flight>("flight", ["EK203", "DXB", "LHR", "UAE", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
+                WriteRaws.InsertValues<Flight>("flight", ["WY101", "MCT", "LHR", "WY", "A9C-AM", "2026-06-01 14:00:00", "2026-06-01 19:10:00", "", "", "Scheduled", "30", "260", "450.00"]);
+                WriteRaws.InsertValues<Flight>("flight", ["EK203", "DXB", "LHR", "EK", "A6-EEV", "2026-06-02 09:45:00", "2026-06-02 14:15:00", "", "", "Scheduled", "14", "503", "600.00"]);
 
                 // 6. Crew Member Rows (Dependent on airline.airline_IATA_code)
                 WriteRaws.InsertValues<CrewMember>("crew_member", ["EMP001", "Ali Al-Balushi", "Pilot", "Omani", "LIC-OM-9921", "WY", "12", "Available"]);
