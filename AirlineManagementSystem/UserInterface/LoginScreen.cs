@@ -20,6 +20,7 @@ namespace AirlineManagementSystem.UserInterface
             string password = "";
             bool interacting = true;
             string token = "";
+            bool isLocked = false;
 
             while (interacting)
             {
@@ -100,6 +101,8 @@ namespace AirlineManagementSystem.UserInterface
                                 Console.CursorVisible = false;
                                 Console.WriteLine("Login Success.");
                                 token = "PlaceHolder";
+
+                                //Add a new log in user_logs.csv for every successful log 
                                 string logId = $"LOG-{ReadRaws.ReadAllRaws("user_logs").Count:D4}";
                                 string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                 WriteRaws.InsertValues<UserLog>("user_logs", [logId, logTime, "Login", ReadRaws.ReadRawByWord(entity, email)[idName]]);
@@ -113,12 +116,32 @@ namespace AirlineManagementSystem.UserInterface
                                 if (timesTried <= 3)
                                 {
                                     Console.WriteLine("Invalid Credentials");
+
+                                    //Add a new log in user_logs.csv for every failed log 
+                                    string logId = $"LOG-{ReadRaws.ReadAllRaws("user_logs").Count:D4}";
+                                    string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    WriteRaws.InsertValues<UserLog>("user_logs", [logId, logTime, "Failed Login", ReadRaws.ReadRawByWord(entity, email)[idName]]);
+
+                                    Thread.Sleep(2000);
+                                }
+                                else
+                                {
+                                    //This when the account is locked and user still trying 
+                                    Console.WriteLine("Account locked: Too many login trails. ");
+                                    Console.WriteLine("Contact the support to recover the account. ");
                                     Thread.Sleep(2000);
                                 }
 
-                                if (timesTried > 3)
+                                if (timesTried >= 3 && ! isLocked)
                                 {
                                     Console.WriteLine("Account locked: Too many login trails. ");
+
+                                    //Add a new log in user_logs.csv when account gets locked 
+                                    string logId = $"LOG-{ReadRaws.ReadAllRaws("user_logs").Count:D4}";
+                                    string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    WriteRaws.InsertValues<UserLog>("user_logs", [logId, logTime, "Account Locked", ReadRaws.ReadRawByWord(entity, email)[idName]]);
+                                    isLocked = true;
+
                                     Thread.Sleep(2000);
                                 }
                             }
