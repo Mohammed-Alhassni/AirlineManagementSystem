@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AirlineManagementSystem.CustomAttributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple =false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple =true, Inherited = true)]
     internal class ForeignKeyAttribute : Attribute
     {
         /// <summary>
