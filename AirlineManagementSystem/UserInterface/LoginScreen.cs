@@ -1,5 +1,6 @@
 ﻿using AirlineManagementSystem.FileHandling;
 using AirlineManagementSystem.HelperFunctions;
+using AirlineManagementSystem.Models;
 using AirlineManagementSystem.UIHelpers;
 
 namespace AirlineManagementSystem.UserInterface
@@ -93,11 +94,16 @@ namespace AirlineManagementSystem.UserInterface
                         else if (currentSelection == 2) // [ Login ] button
                         {
                             string entity = isAdmin ? "admin" : "passenger";
+                            string idName= isAdmin ? "username" : "passenger_id";
                             if (ReadRaws.ReadRawByWord(entity, email)["password"].Equals(password) && timesTried <= 3)
                             {
                                 Console.CursorVisible = false;
                                 Console.WriteLine("Login Success.");
                                 token = "PlaceHolder";
+                                string logId = $"LOG-{ReadRaws.ReadAllRaws("user_logs").Count:D4}";
+                                string logTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                WriteRaws.InsertValues<UserLog>("user_logs", [logId, logTime, "Login", ReadRaws.ReadRawByWord(entity, email)[idName]]);
+
                                 Thread.Sleep(2000);
                                 Console.CursorVisible = true;
                             }

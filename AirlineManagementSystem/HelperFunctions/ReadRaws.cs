@@ -4,6 +4,24 @@ namespace AirlineManagementSystem.HelperFunctions
 {
     internal static class ReadRaws
     {
+        internal static List<string> ReadAllRaws(string fileName, bool isBinDirectory = false)
+        {
+            try
+            {
+                string filePath = Path.Combine("Data", $"{fileName}.csv");
+                if (!isBinDirectory) { filePath = Path.Combine("..", "..", "..", filePath); }
+
+
+                return LinesRead.ReadAllLine(filePath);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading {fileName}: {ex.Message}");
+                return new List<string> { };
+            }
+        }
+
         internal static Dictionary<string, string> ReadRawByPk(string fileName, string primaryKey, bool isBinDirectory = false)
         {
             try
