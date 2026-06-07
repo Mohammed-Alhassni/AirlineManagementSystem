@@ -16,26 +16,38 @@ namespace AirlineManagementSystem.IntegrityValidation
 
             foreach (PropertyInfo prop in properties)
             {
-                // Check if  property has custom ForeignKey attribute
-                var fkAttribute = prop.GetCustomAttribute<ForeignKeyAttribute>();
+                // Fetch all custom ForeignKeyAttributes applied to this property
+                var fkAttributes = prop.GetCustomAttributes<ForeignKeyAttribute>();
 
-
-                if (fkAttribute != null)
+                // If the property has at least one ForeignKeyAttribute, validate them
+                if (fkAttributes != null && fkAttributes.Any())
                 {
-                    // Extract the value currently stored in the property
                     string fkValue = prop.GetValue(entity).ToString();
 
-                    // Extract the metadata from the attribute 
-                    string targetTable = fkAttribute.LinkedTable;
+                    bool anyValid = false;
 
-                    if (ReadRaws.ReadRawByPk(targetTable, fkValue).Count <= 1)
+                    // Loop through all found attributes on this property
+                    foreach (var fkAttribute in fkAttributes)
                     {
-                        Console.Write($"Invalid forign key for {entityType.Name}: The Primary key {fkValue} does not exist in {targetTable}");
-                        return false;    
+                        string targetTable = fkAttribute.LinkedTable;
+
+                        // Check if the key exists in the current target table
+                        if (ReadRaws.ReadRawByPk(targetTable, fkValue).Count > 0)
+                        {
+                            Console.WriteLine($"Valid foreign key for {entityType.Name}: The Primary key {fkValue} does exists in {targetTable}.");
+                            anyValid = true;
+                            break; // Found a match
+                        }
                     }
 
-                    Console.Write($"Valid forign key for {entityType.Name}:  The Primary key {fkValue} does exist in {targetTable}...");
-                    return true;
+                    // If NONE of the attributes matched
+                    if (!anyValid)
+                    {
+                        // Listing the attempted tables in the error log for better debugging
+                        string attemptedTables = string.Join(", ", fkAttributes.Select(a => a.LinkedTable));
+                        Console.WriteLine($"Invalid foreign key for {entityType.Name}: The Primary key '{fkValue}' does not exist in any of the target tables ({attemptedTables}).");
+                        return false;
+                    }
                 }
             }
 
