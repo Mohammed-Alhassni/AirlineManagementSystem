@@ -214,6 +214,9 @@ namespace AirlineManagementSystem.UIHelpers
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Outputs a summary that switches between 3-column or 2-column layouts based on content size.
+        /// </summary>
         internal static void DisplaySummary(string headerText, List<KeyValuePair<string, string>> data)
         {
             // 1. Determine the maximum string width for alignment calculation
