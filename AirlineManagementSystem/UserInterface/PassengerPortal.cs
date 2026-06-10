@@ -23,7 +23,7 @@ namespace AirlineManagementSystem.UserInterface
                 // Pass the currentSelection so the box knows which line to highlight
                 MenuElements.RenderMenuBox(
                     "Passenger Portal",
-                    $"Welcome back {user["full_name"]}. Select an option to proceed.",
+                    $"Welcome back {user["full_name"].Split(" ")[0]}. Select an option to proceed.",
                     options,
                     "Use UP/DOWN arrows to navigate, ENTER to select.",
                     currentSelection
