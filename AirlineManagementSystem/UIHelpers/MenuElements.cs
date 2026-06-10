@@ -213,5 +213,79 @@ namespace AirlineManagementSystem.UIHelpers
             Console.ResetColor();
             Console.WriteLine();
         }
+
+        internal static void DisplaySummary(string headerText, List<KeyValuePair<string, string>> data)
+        {
+            // 1. Determine the maximum string width for alignment calculation
+            int maxItemLength = 0;
+            foreach (var kvp in data)
+            {
+                int currentLength = $"[{kvp.Key}] {kvp.Value}".Length;
+                if (currentLength > maxItemLength) maxItemLength = currentLength;
+            }
+
+            // Space between columns
+            int columnWidth = maxItemLength + 4;
+
+            // Choose grid size (3 columns if short, 2 columns if long)
+            int columnsCount = (columnWidth > 25) ? 2 : 3;
+            int totalContentWidth = columnWidth * columnsCount;
+
+            // Get the console window width dynamically to find the starting center position
+            int windowWidth = Console.WindowWidth;
+            int paddingLeft = Math.Max(0, (windowWidth - totalContentWidth) / 2);
+            string leftOffset = new string(' ', paddingLeft);
+
+            // 2. Render Centered Header
+            Console.WriteLine();
+            string formattedHeader = $"--- {headerText} ---";
+            Console.SetCursorPosition(Math.Max(0, (windowWidth - formattedHeader.Length) / 2), Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(formattedHeader);
+            Console.ResetColor();
+            Console.WriteLine();
+
+            // 3. Render Centered & Styled Rows
+            for (int i = 0; i < data.Count; i += columnsCount)
+            {
+                // Move cursor to center offset
+                Console.Write(leftOffset);
+
+                for (int col = 0; col < columnsCount; col++)
+                {
+                    int targetIndex = i + col;
+                    if (targetIndex < data.Count)
+                    {
+                        // Stylize label with terminal brackets: [Gate]
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write(data[targetIndex].Key);
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.Write(": ");
+
+                        // Render Value
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(data[targetIndex].Value);
+
+                        // Padding for the next column (skip padding for the absolute last column)
+                        if (col < columnsCount - 1)
+                        {
+                            int currentWrittenLength = $"[{data[targetIndex].Key}] {data[targetIndex].Value}".Length;
+                            int spacesNeeded = columnWidth - currentWrittenLength;
+                            Console.Write(new string(' ', Math.Max(0, spacesNeeded)));
+                        }
+                    }
+                }
+                Console.WriteLine(); // Next line
+            }
+
+            // 4. Render Centered Footer Line
+            Console.WriteLine();
+            Console.Write(leftOffset);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(new string('-', totalContentWidth - 2));
+            Console.ResetColor();
+            Console.WriteLine();
+        }
     }
 }
