@@ -231,7 +231,7 @@ namespace AirlineManagementSystem.UIHelpers
             int columnWidth = maxItemLength + 4;
 
             // Choose grid size (3 columns if short, 2 columns if long)
-            int columnsCount = (columnWidth > 25) ? 2 : 3;
+            int columnsCount = (columnWidth > 36) ? 2 : 3;
             int totalContentWidth = columnWidth * columnsCount;
 
             // Get the console window width dynamically to find the starting center position
