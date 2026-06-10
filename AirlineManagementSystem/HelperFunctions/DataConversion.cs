@@ -7,6 +7,21 @@ namespace AirlineManagementSystem.HelperFunctions
 {
     internal class DataConversion
     {
+        internal static List<Dictionary<string, string>> CreateDictionaries(string filename, bool isBinDirectory = false)
+        {
+            List<string> raws = ReadRaws.ReadAllRaws(filename).Skip(1).ToList();
+
+            List<Dictionary<string, string>> allRaws= new List<Dictionary<string, string>>();
+
+            foreach (string raw in raws )
+            {
+                string[] values = raw.Split(",");
+                allRaws.Add(CreateDictionary(filename, values, isBinDirectory));
+            }
+
+            return allRaws;
+        }
+
         internal static Dictionary<string, string> CreateDictionary(string fileName, string[] values, bool isBinDirectory = false)
         {
             try
