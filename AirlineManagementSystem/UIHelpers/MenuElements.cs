@@ -70,7 +70,6 @@ namespace AirlineManagementSystem.UIHelpers
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(new string(' ', headerOffset) + headerText);
             Console.ResetColor();
-            Console.WriteLine();
 
             // 4. Create border blocks
             string horizontalLine = new string('═', internalWidth);
@@ -211,13 +210,12 @@ namespace AirlineManagementSystem.UIHelpers
             // 10. Render Bottom Border
             PrintStructure("╚", horizontalLine, "╝");
             Console.ResetColor();
-            Console.WriteLine();
         }
 
         /// <summary>
         /// Outputs a summary that switches between 3-column or 2-column layouts based on content size.
         /// </summary>
-        internal static void DisplaySummary(string headerText, List<KeyValuePair<string, string>> data)
+        internal static void DisplaySummary(string headerText, List<KeyValuePair<string, string>> data, int columsNumbers= 3)
         {
             // 1. Determine the maximum string width for alignment calculation
             int maxItemLength = 0;
@@ -231,7 +229,7 @@ namespace AirlineManagementSystem.UIHelpers
             int columnWidth = maxItemLength + 4;
 
             // Choose grid size (3 columns if short, 2 columns if long)
-            int columnsCount = (columnWidth > 36) ? 2 : 3;
+            int columnsCount = (columnWidth > 36) ? columsNumbers - 1 : columsNumbers;
             int totalContentWidth = columnWidth * columnsCount;
 
             // Get the console window width dynamically to find the starting center position
@@ -240,7 +238,6 @@ namespace AirlineManagementSystem.UIHelpers
             string leftOffset = new string(' ', paddingLeft);
 
             // 2. Render Centered Header
-            Console.WriteLine();
             string formattedHeader = $"--- {headerText} ---";
             Console.SetCursorPosition(Math.Max(0, (windowWidth - formattedHeader.Length) / 2), Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -283,12 +280,9 @@ namespace AirlineManagementSystem.UIHelpers
             }
 
             // 4. Render Centered Footer Line
-            Console.WriteLine();
-            Console.Write(leftOffset);
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(new string('-', totalContentWidth - 2));
+            Console.WriteLine(new string('-', windowWidth - 2));
             Console.ResetColor();
-            Console.WriteLine();
         }
     }
 }
