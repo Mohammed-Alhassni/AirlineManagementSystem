@@ -2,13 +2,14 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace AirlineManagementSystem.UserInterface
 {
     internal class AdminDashboard
     {
-        internal static void ShowAdminDashboard()
+        internal static void ShowAdminDashboard(Dictionary<string, string> user)
         {
             string[] options = {"Flight Management", "Ticket Price Calculator", "Passenger Management", "Crew Management", "Promotions Management", "Baggage Oversight", "System Logs", "Logout"};
             int currentSelection = 0;

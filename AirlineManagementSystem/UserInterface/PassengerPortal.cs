@@ -7,7 +7,7 @@ namespace AirlineManagementSystem.UserInterface
 {
     internal class PassengerPortal
     {
-        internal static void ShowPassengerPortal()
+        internal static void ShowPassengerPortal(Dictionary<string, string> user)
         {
             string[] options = { "Browse & Search Flights", "Book a Ticket", "Manage My Tickets", "My Profile", "Personalized Recommendations", "Logout" };
             int currentSelection = 0;
@@ -22,8 +22,8 @@ namespace AirlineManagementSystem.UserInterface
 
                 // Pass the currentSelection so the box knows which line to highlight
                 MenuElements.RenderMenuBox(
-                    "Admin Dashboard",
-                    "Welcome back. Select an option to proceed.",
+                    "Passenger Portal",
+                    $"Welcome back {user["full_name"]}. Select an option to proceed.",
                     options,
                     "Use UP/DOWN arrows to navigate, ENTER to select.",
                     currentSelection

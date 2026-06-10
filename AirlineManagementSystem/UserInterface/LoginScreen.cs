@@ -15,6 +15,7 @@ namespace AirlineManagementSystem.UserInterface
             int currentSelection = 0;
             int totalElements = fields.Length + buttons.Length;
 
+            Dictionary<string, string> user = new Dictionary<string, string> { };
             bool isAdmin= false;
             string email = "";
             string password = "";
@@ -58,7 +59,7 @@ namespace AirlineManagementSystem.UserInterface
                         if (currentSelection == 0) // Email field
                         {
                             Console.CursorVisible = true;
-                            string temp = IOHelpers.ReadFieldInput("Enter Email: ");
+                            string temp = IOHelpers.ReadFieldInput("Enter Email: ").ToLower();
                             if (ReadRaws.ReadRawByWord("admin", temp).Count > 0)
                             {
                                 isAdmin = true;
@@ -98,6 +99,7 @@ namespace AirlineManagementSystem.UserInterface
                             string idName= isAdmin ? "username" : "passenger_id";
                             if (ReadRaws.ReadRawByWord(entity, email)["password"].Equals(password) && timesTried <= 3)
                             {
+                                user = ReadRaws.ReadRawByWord(entity, email);
                                 Console.CursorVisible = false;
                                 Console.WriteLine("Login Success.");
                                 token = "PlaceHolder";
@@ -149,13 +151,13 @@ namespace AirlineManagementSystem.UserInterface
                             if (isAdmin && token.Equals("PlaceHolder"))
                             {
                                 interacting = false;
-                                AdminDashboard.ShowAdminDashboard();
+                                AdminDashboard.ShowAdminDashboard(user);
                                 
                             }
                             else if (token.Equals("PlaceHolder"))
                             {
                                 interacting = false;
-                                PassengerPortal.ShowPassengerPortal();
+                                PassengerPortal.ShowPassengerPortal(user);
                                 
                             } 
                         }
