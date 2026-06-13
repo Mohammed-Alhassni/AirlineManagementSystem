@@ -59,16 +59,16 @@ namespace AirlineManagementSystem.UserInterface
                         if (currentSelection == 0) // Email field
                         {
                             Console.CursorVisible = true;
-                            string temp = IOHelpers.ReadFieldInput("Enter Email: ").ToLower();
-                            if (ReadRaws.ReadRawByWord("admin", temp).Count > 0)
+                            string temp = IOHelpers.ReadFieldInput("Enter Email: ");
+                            if (ReadRaws.ReadRawByWord("admin", temp)["email"].Equals(temp, StringComparison.OrdinalIgnoreCase))
                             {
                                 isAdmin = true;
-                                email= temp;
+                                email= ReadRaws.ReadRawByWord("admin", temp)["email"];
                             }
-                            else if (ReadRaws.ReadRawByWord("passenger", temp).Count > 0)
+                            else if (ReadRaws.ReadRawByWord("passenger", temp)["email"].Equals(temp, StringComparison.OrdinalIgnoreCase))
                             {
                                 isAdmin=false;
-                                email = temp;
+                                email = ReadRaws.ReadRawByWord("passenger", temp)["email"];
                             }
                             else
                             {
