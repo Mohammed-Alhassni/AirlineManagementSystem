@@ -57,7 +57,7 @@ namespace AirlineManagementSystem.HelperFunctions
             }
         }
 
-        internal static Dictionary<string, string> ReadRawByWord(string fileName, string word, bool isBinDirectory = false)
+        internal static Dictionary<string, string> ReadRawByWord(string fileName, string word, bool isCaseSen= false, bool isBinDirectory = false)
         {
             try
             {
@@ -72,12 +72,18 @@ namespace AirlineManagementSystem.HelperFunctions
                 string[] headers = headerLine.Split(",");
                 string[] values = raw.Split(",");
 
-                if (!values.Contains(word))
+                // Determine the correct comparer based on the isCaseSen flag
+                var comparer = isCaseSen ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+                
+                if (!values.Contains(word, comparer))
                 {
-                    //Console.WriteLine($"Word: {word} does not exist in {fileName}");
-                    return new Dictionary<string, string>();
+                    foreach (var header in headers)
+                    {
+                        record.Add(header, "");
+                    }
+                    return record;
                 }
-
+                
                 for (int i = 0; i < headers.Length && i < values.Length; i++)
                 {
                     record.Add(headers[i], values[i]);
