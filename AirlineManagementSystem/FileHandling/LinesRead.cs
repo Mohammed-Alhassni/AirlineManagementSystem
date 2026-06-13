@@ -64,7 +64,7 @@
 
                 while ((line = sr.ReadLine() ?? "") != "")
                 {
-                    if (line.Contains(word)) { return line; }
+                    if (line.Contains(word, StringComparison.OrdinalIgnoreCase)) { return line; }
                 }
             }
 
